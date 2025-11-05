@@ -1,5 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&family=Press+Start+2P&display=swap');
 
+@font-face {
+    font-family: 'Terminal Grotesque';
+    src: url('fonts/terminal-grotesque.woff2') format('woff2'),
+         url('fonts/terminal-grotesque.woff') format('woff'),
+         url('fonts/terminal-grotesque.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -7,7 +16,7 @@
 }
 
 body {
-    font-family: 'Pixelify Sans', monospace;
+    font-family: 'Terminal Grotesque', 'Courier New', monospace;
     font-size: 16px;
     background: #000;
     color: #fff;
