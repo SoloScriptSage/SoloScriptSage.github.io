@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robotic Hand Prototype - Vladyslav Hirchuk</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">home</a></li>
+            <li><a href="index.html#skills">skills</a></li>
+            <li><a href="index.html#projects">projects</a></li>
+            <li><a href="index.html#contact">contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="project-detail">
+        <a href="index.html#projects" class="back-link">back to projects</a>
+        
+        <div class="project-header">
+            <h1>Robotic Hand Prototype<span class="cursor"></span></h1>
+            <div class="project-tech">Arduino • C++ • Embedded Systems • Mechanical Design</div>
+        </div>
+
+        <div class="project-section">
+            <h3>Overview</h3>
+            <p>An adaptive prosthetic hand prototype featuring wireless control and intelligent grip adjustment. Built with Arduino Nano, the system uses embedded C++ for real-time motor control and sensor processing, creating a responsive and practical assistive device.</p>
+            <p>The project combines mechanical design, embedded programming, and wireless communication to create a functional prototype that demonstrates advanced robotics principles in a practical application.</p>
+        </div>
+
+        <div class="image-placeholder">
+            <img src="img/robotic-hand-model.jpg" alt="Robotic Hand Prototype" style="max-width: 35%; height: auto;">
+        </div>
+
+        <div class="project-section">
+            <h3>Key Features</h3>
+            <ul>
+                <li>5 independently controlled servo motors for finger articulation</li>
+                <li>Wireless control system with low-latency command transmission</li>
+                <li>Pressure sensors for adaptive grip strength</li>
+                <li>Real-time feedback loop for responsive control</li>
+                <li>Custom communication protocol optimized for embedded systems</li>
+                <li>Power management for extended battery life</li>
+                <li>Modular design for easy maintenance and upgrades</li>
+                <li>Robust error handling and safety mechanisms</li>
+            </ul>
+        </div>
+
+        <div class="project-section">
+            <h3>Technical Implementation</h3>
+            <p><strong>Motor Control:</strong> Implemented precise servo control using PWM signals, with custom algorithms for smooth finger movements and position interpolation. Each finger has independent control with configurable speed and force limits.</p>
+            <p><strong>Sensor Integration:</strong> Force-sensitive resistors (FSR) placed on fingertips provide grip feedback. Microcontroller continuously monitors pressure and adjusts motor torque to maintain stable grip without crushing objects.</p>
+            <p><strong>Wireless Communication:</strong> Custom protocol using RF modules for reliable command transmission. Packet-based system with error checking and acknowledgment ensures no commands are lost or corrupted.</p>
+            <p><strong>Adaptive Algorithms:</strong> Machine learning-inspired grip adjustment that learns optimal force profiles for different object types based on sensor feedback.</p>
+        </div>
+
+        <div class="project-section">
+            <h3>Hardware Components</h3>
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <div class="spec-label">Microcontroller</div>
+                    <div class="spec-value">Arduino Nano</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Servo Motors</div>
+                    <div class="spec-value">5x MG90S</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Sensors</div>
+                    <div class="spec-value">FSR Pressure Sensors</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Wireless</div>
+                    <div class="spec-value">nRF24L01+ Module</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Power</div>
+                    <div class="spec-value">7.4V LiPo Battery</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Response Time</div>
+                    <div class="spec-value">&lt;50ms</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-section">
+            <h3>Assembly Process</h3>
+            <p>The hand was designed using 3D-printed components for the frame and finger segments. Each finger uses a tendon-driven mechanism with fishing line, controlled by servo motors located in the palm assembly.</p>
+            <p>Assembly involves mounting servos, routing tendons through finger channels, calibrating sensor positions, and integrating the electronics. The modular design allows individual fingers to be replaced or upgraded without disassembling the entire unit.</p>
+        </div>
+
+        <div class="image-placeholder">
+            [Add assembly process photos or wiring diagram here]
+        </div>
+
+        <div class="project-section">
+            <h3>Challenges & Solutions</h3>
+            <p><strong>Grip Stability:</strong> Initial design struggled with maintaining consistent grip pressure. Implemented PID control loop that continuously adjusts based on sensor feedback, resulting in stable grip across different object sizes.</p>
+            <p><strong>Power Consumption:</strong> Five servos drew significant current, limiting battery life. Added intelligent power management that reduces servo holding torque when not actively adjusting, extending runtime by 60%.</p>
+            <p><strong>Wireless Reliability:</strong> RF interference caused occasional command drops. Implemented packet acknowledgment system with automatic retry and error recovery mechanisms.</p>
+            <p><strong>Mechanical Durability:</strong> Early tendon routing caused friction and wear. Redesigned finger channels with smoother curves and added PTFE tubing, significantly improving longevity.</p>
+        </div>
+
+        <div class="project-section">
+            <h3>Future Improvements</h3>
+            <ul>
+                <li>Integration with EMG sensors for neural control</li>
+                <li>Addition of haptic feedback system</li>
+                <li>Machine learning for grip pattern recognition</li>
+                <li>Improved finger mechanics for finer control</li>
+                <li>Mobile app for configuration and monitoring</li>
+            </ul>
+        </div>
+
+        <div class="project-section">
+            <h3>Links & Resources</h3>
+            <div class="project-links">
+                <a href="https://github.com/SoloScriptSage/robotic-hand" class="project-link" target="_blank">GitHub Repository</a>
+                <a href="#" class="project-link" target="_blank">Demo Video</a>
+                <a href="#" class="project-link" target="_blank">Assembly Guide</a>
+                <a href="#" class="project-link" target="_blank">3D Print Files</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

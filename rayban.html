@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ray-Ban Voice Camera HUD - Vladyslav Hirchuk</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">home</a></li>
+            <li><a href="index.html#skills">skills</a></li>
+            <li><a href="index.html#projects">projects</a></li>
+            <li><a href="index.html#contact">contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="project-detail">
+        <a href="index.html#projects" class="back-link">back to projects</a>
+        
+        <div class="project-header">
+            <h1>Ray-Ban Voice Camera HUD<span class="cursor"></span></h1>
+            <div class="project-tech">Python • C++ • Computer Vision • Speech Recognition</div>
+        </div>
+
+        <div class="project-section">
+            <h3>Overview</h3>
+            <p>A voice-controlled camera system with heads-up display (HUD) functionality, designed to work with Ray-Ban smart glasses. The system uses offline speech recognition to process commands and integrates real-time computer vision capabilities for face detection, hand tracking, and object recognition.</p>
+            <p>The project demonstrates advanced integration of audio processing, computer vision, and real-time overlay rendering, all optimized for wearable technology constraints.</p>
+        </div>
+
+        <div class="image-placeholder">
+            <img src="img/rayband-model.jpg" alt="Ray-Ban HUD Demo">
+        </div>
+
+        <div class="project-section">
+            <h3>Key Features</h3>
+            <ul>
+                <li>Offline voice recognition using Vosk for privacy and reliability</li>
+                <li>Real-time face detection and tracking with OpenCV</li>
+                <li>Hand gesture recognition using MediaPipe</li>
+                <li>Dynamic overlay system with configurable information display</li>
+                <li>Multi-threaded architecture for smooth audio/video synchronization</li>
+                <li>Command debouncing to prevent accidental triggers</li>
+                <li>State management for different operational modes</li>
+                <li>Low-latency processing for responsive user experience</li>
+            </ul>
+        </div>
+
+        <div class="project-section">
+            <h3>Technical Implementation</h3>
+            <p><strong>Speech Recognition:</strong> Implemented using Vosk's offline model, processing audio in real-time with a dedicated thread. Custom command parser with confidence thresholds and debouncing logic to ensure accurate command detection.</p>
+            <p><strong>Computer Vision Pipeline:</strong> OpenCV-based processing chain handling multiple detection tasks simultaneously. Face detection uses Haar cascades for efficiency, while hand tracking leverages MediaPipe for accuracy. Frame processing optimized to maintain 30+ FPS.</p>
+            <p><strong>Overlay System:</strong> Custom rendering engine that draws information directly onto video frames. Dynamic positioning based on detected objects, with fade-in/fade-out animations for smooth user experience.</p>
+        </div>
+
+        <div class="project-section">
+            <h3>Technical Specifications</h3>
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <div class="spec-label">Languages</div>
+                    <div class="spec-value">Python, C++</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Computer Vision</div>
+                    <div class="spec-value">OpenCV, MediaPipe</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Speech Recognition</div>
+                    <div class="spec-value">Vosk (Offline)</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Processing</div>
+                    <div class="spec-value">Multi-threaded</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Frame Rate</div>
+                    <div class="spec-value">30+ FPS</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Latency</div>
+                    <div class="spec-value">&lt;100ms</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-section">
+            <h3>Challenges & Solutions</h3>
+            <p><strong>Audio-Video Synchronization:</strong> Managing separate threads for audio recording and video capture while maintaining perfect sync. Solved using timestamp-based alignment and buffer management.</p>
+            <p><strong>Performance Optimization:</strong> Balancing multiple CV tasks without frame drops. Implemented selective frame processing and adaptive quality settings based on system load.</p>
+            <p><strong>Command Accuracy:</strong> Preventing false positives in noisy environments. Added confidence thresholds, command debouncing, and context-aware filtering.</p>
+        </div>
+
+        <div class="image-placeholder">
+            [Architecture diagram and demo images coming soon...]
+        </div>
+
+        <div class="project-section">
+            <h3>Links & Resources</h3>
+            <div class="project-links">
+                <a href="https://github.com/SoloScriptSage/rayband-voice-cam" class="project-link" target="_blank">GitHub Repository</a>
+                <a href="#" class="project-link" target="_blank">Demo Video</a>
+                <a href="#" class="project-link" target="_blank">Technical Documentation</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

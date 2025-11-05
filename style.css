@@ -1,0 +1,437 @@
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&family=Press+Start+2P&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Pixelify Sans', monospace;
+    font-size: 16px;
+    background: #000;
+    color: #fff;
+    line-height: 1.4;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.15),
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.cursor {
+    display: inline-block;
+    width: 12px;
+    height: 24px;
+    background: #fff;
+    animation: blink 1s infinite;
+    margin-left: 4px;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #000;
+    padding: 1rem 2rem;
+    border-bottom: 2px solid #fff;
+    z-index: 1000;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: all 0.3s;
+    position: relative;
+    text-transform: uppercase;
+}
+
+nav a:hover {
+    color: #ccc;
+    text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.3);
+}
+
+nav a::before {
+    content: '> ';
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+nav a:hover::before {
+    opacity: 1;
+}
+
+section {
+    min-height: 100vh;
+    padding: 6rem 2rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.hero h1 .cursor {
+    animation: none;
+    opacity: 0;
+}
+
+h1 {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 2rem;
+    font-weight: 400;
+    margin-bottom: 2rem;
+    color: #fff;
+    text-shadow: 3px 3px 0px #333;
+    line-height: 1.8;
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    color: #ccc;
+    margin-bottom: 2rem;
+    display: inline-block;
+}
+
+.terminal-line {
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+    opacity: 0.9;
+}
+
+.command {
+    color: #fff;
+    font-weight: bold;
+}
+
+h2 {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    color: #fff;
+    border-bottom: 2px solid #fff;
+    padding-bottom: 1rem;
+    display: inline-block;
+    text-shadow: 2px 2px 0px #333;
+    line-height: 1.8;
+}
+
+h2::before {
+    content: '// ';
+    color: #ccc;
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.skill-card {
+    background: #000;
+    border: 2px solid #fff;
+    padding: 1.5rem;
+    transition: all 0.3s;
+    box-shadow: 4px 4px 0px #333;
+}
+
+.skill-card:hover {
+    background: #111;
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px #333;
+}
+
+.skill-card h3 {
+    font-family: 'Press Start 2P', cursive;
+    color: #fff;
+    margin-bottom: 1.5rem;
+    font-size: 0.8rem;
+}
+
+.skill-card ul {
+    list-style: none;
+    font-size: 1.1rem;
+}
+
+.skill-card li {
+    margin: 0.5rem 0;
+}
+
+.skill-card li::before {
+    content: '> ';
+    color: #ccc;
+}
+
+.project-card {
+    background: #000;
+    border: 2px solid #fff;
+    border-left: 6px solid #fff;
+    padding: 2rem;
+    margin: 2rem 0;
+    transition: all 0.3s;
+    box-shadow: 6px 6px 0px #333;
+}
+
+.project-card:hover {
+    background: #111;
+    transform: translate(3px, 3px);
+    box-shadow: 3px 3px 0px #333;
+}
+
+.project-card h3 {
+    font-family: 'Press Start 2P', cursive;
+    color: #fff;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.project-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.project-link {
+    color: #000;
+    background: #fff;
+    text-decoration: none;
+    border: 2px solid #fff;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    transition: all 0.3s;
+    display: inline-block;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.project-link:hover {
+    background: #000;
+    color: #fff;
+    transform: translate(2px, 2px);
+    box-shadow: 3px 3px 0px #333;
+}
+
+.project-link::before {
+    content: '[ ';
+}
+
+.project-link::after {
+    content: ' ]';
+}
+
+.project-tech {
+    color: #ccc;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.project-card ul {
+    list-style: none;
+    font-size: 1.1rem;
+}
+
+.project-card li {
+    margin: 0.8rem 0;
+    padding-left: 2rem;
+    position: relative;
+}
+
+.project-card li::before {
+    content: '*';
+    position: absolute;
+    left: 0;
+    color: #ccc;
+    font-size: 1.5rem;
+}
+
+.contact-info {
+    font-size: 1.2rem;
+    line-height: 2;
+}
+
+.contact-info a {
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s;
+    border-bottom: 2px solid transparent;
+}
+
+.contact-info a:hover {
+    border-bottom: 2px solid #fff;
+}
+
+.contact-line::before {
+    content: '$ ';
+    color: #ccc;
+}
+
+/* Project detail page styles */
+.back-link {
+    display: inline-block;
+    color: #fff;
+    text-decoration: none;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    transition: all 0.3s;
+    text-transform: uppercase;
+}
+
+.back-link:hover {
+    color: #ccc;
+    transform: translateX(-5px);
+}
+
+.back-link::before {
+    content: '<< ';
+}
+
+.project-detail {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 6rem 2rem 2rem;
+}
+
+.project-header {
+    margin-bottom: 3rem;
+}
+
+.project-header h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.project-section {
+    margin: 3rem 0;
+}
+
+.project-section h3 {
+    font-family: 'Press Start 2P', cursive;
+    color: #fff;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #fff;
+    padding-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.project-section h3::before {
+    content: '### ';
+    color: #ccc;
+}
+
+.project-section p {
+    margin-bottom: 1rem;
+    line-height: 1.8;
+    font-size: 1.1rem;
+}
+
+.project-section strong {
+    color: #fff;
+    font-weight: bold;
+}
+
+.image-placeholder {
+    background: #000;
+    border: 3px solid #fff;
+    padding: 2rem;
+    text-align: center;
+    margin: 2rem 0;
+    color: #ccc;
+    font-size: 1rem;
+    box-shadow: 6px 6px 0px #333;
+}
+
+.image-placeholder img {
+    max-width: 100%;
+    height: auto;
+    border: 3px solid #fff;
+    box-shadow: 6px 6px 0px #333;
+}
+
+.specs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.spec-item {
+    background: #000;
+    border: 2px solid #fff;
+    padding: 1rem;
+    box-shadow: 4px 4px 0px #333;
+}
+
+.spec-label {
+    font-family: 'Press Start 2P', cursive;
+    color: #fff;
+    font-size: 0.6rem;
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
+}
+
+.spec-value {
+    color: #ccc;
+    font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.3rem;
+    }
+    
+    .subtitle {
+        font-size: 1.2rem;
+    }
+    
+    nav ul {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    
+    section {
+        padding: 5rem 1rem 2rem;
+    }
+    
+    .project-header h1 {
+        font-size: 1.2rem;
+    }
+    
+    h2 {
+        font-size: 1.2rem;
+    }
+}
