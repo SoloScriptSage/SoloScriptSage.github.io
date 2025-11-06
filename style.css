@@ -203,6 +203,8 @@ h2::before {
     color: #ccc;
 }
 
+
+
 .project-card {
     background: #000;
     border: 2px solid #fff;
@@ -306,6 +308,128 @@ h2::before {
 .contact-line::before {
     content: '$ ';
     color: #ccc;
+}
+
+/* Experience section styles */
+.experience-card {
+    background: #000;
+    border: 2px solid #fff;
+    border-left: 6px solid #fff;
+    padding: 2rem;
+    margin: 2rem 0;
+    transition: all 0.3s;
+    box-shadow: 6px 6px 0px #333;
+}
+
+.experience-card:hover {
+    background: #111;
+    transform: translate(3px, 3px);
+    box-shadow: 3px 3px 0px #333;
+}
+
+.experience-header {
+    margin-bottom: 1.5rem;
+}
+
+.experience-header h3 {
+    font-family: 'Press Start 2P', cursive;
+    color: #fff;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.experience-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 1rem;
+    color: #ccc;
+}
+
+.company {
+    color: #fff;
+    font-weight: bold;
+}
+
+.period {
+    color: #999;
+}
+
+.experience-card ul {
+    list-style: none;
+    font-size: 1.1rem;
+}
+
+.experience-card li {
+    margin: 0.8rem 0;
+    padding-left: 2rem;
+    position: relative;
+}
+
+.experience-card li::before {
+    content: '*';
+    position: absolute;
+    left: 0;
+    color: #ccc;
+    font-size: 1.5rem;
+}
+
+/* Education section styles */
+.education-card {
+    background: #000;
+    border: 2px solid #fff;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    transition: all 0.3s;
+    box-shadow: 4px 4px 0px #333;
+}
+
+.education-card:hover {
+    background: #111;
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px #333;
+}
+
+.education-header {
+    margin-bottom: 1rem;
+}
+
+.education-header h3 {
+    font-family: 'Press Start 2P', cursive;
+    color: #fff;
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.education-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    font-size: 1rem;
+    color: #ccc;
+}
+
+.institution {
+    color: #fff;
+    font-weight: bold;
+}
+
+.location {
+    color: #999;
+}
+
+.education-focus {
+    font-size: 1rem;
+    color: #ccc;
+    margin-top: 0.5rem;
+    font-style: italic;
+}
+
+.education-focus::before {
+    content: '> ';
+    color: #fff;
 }
 
 /* Project detail page styles */
