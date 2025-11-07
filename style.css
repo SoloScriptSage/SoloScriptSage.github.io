@@ -1,13 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&family=Press+Start+2P&display=swap');
-
-@font-face {
-    font-family: 'Terminal Grotesque';
-    src: url('fonts/terminal-grotesque.woff2') format('woff2'),
-         url('fonts/terminal-grotesque.woff') format('woff'),
-         url('fonts/terminal-grotesque.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 * {
     margin: 0;
@@ -16,14 +7,16 @@
 }
 
 body {
-    font-family: 'Terminal Grotesque', 'Courier New', monospace;
+    font-family: 'Courier New', monospace;
     font-size: 16px;
-    background: #000;
+    background: radial-gradient(ellipse at center, #0a0a0a 0%, #000000 100%);
     color: #fff;
     line-height: 1.4;
     overflow-x: hidden;
+    position: relative;
 }
 
+/* Scanline effect */
 body::before {
     content: '';
     position: fixed;
@@ -42,13 +35,33 @@ body::before {
     z-index: 9999;
 }
 
+/* CRT effect */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0.03) 0px,
+        transparent 1px,
+        transparent 2px,
+        rgba(255, 255, 255, 0.03) 3px
+    );
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0.5;
+}
+
 .cursor {
     display: inline-block;
     width: 12px;
     height: 24px;
     background: #fff;
-    animation: blink 1s infinite;
     margin-left: 4px;
+    opacity: 0;
 }
 
 @keyframes blink {
@@ -56,6 +69,18 @@ body::before {
     51%, 100% { opacity: 0; }
 }
 
+#scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 4px;
+    background: #fff;
+    z-index: 10000;
+    transition: width 0.1s ease-out;
+}
+
+/* Navigation */
 nav {
     position: fixed;
     top: 0;
@@ -97,6 +122,7 @@ nav a:hover::before {
     opacity: 1;
 }
 
+/* Sections */
 section {
     min-height: 100vh;
     padding: 6rem 2rem 2rem;
@@ -104,16 +130,12 @@ section {
     margin: 0 auto;
 }
 
+/* Hero Section */
 .hero {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-}
-
-.hero h1 .cursor {
-    animation: none;
-    opacity: 0;
 }
 
 h1 {
@@ -144,6 +166,7 @@ h1 {
     font-weight: bold;
 }
 
+/* Section Headers */
 h2 {
     font-family: 'Press Start 2P', cursive;
     font-size: 1.5rem;
@@ -161,6 +184,7 @@ h2::before {
     color: #ccc;
 }
 
+/* Skills Section */
 .skills-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -203,115 +227,15 @@ h2::before {
     color: #ccc;
 }
 
-
-
-.project-card {
-    background: #000;
-    border: 2px solid #fff;
-    border-left: 6px solid #fff;
-    padding: 2rem;
-    margin: 2rem 0;
-    transition: all 0.3s;
-    box-shadow: 6px 6px 0px #333;
-}
-
-.project-card:hover {
-    background: #111;
-    transform: translate(3px, 3px);
-    box-shadow: 3px 3px 0px #333;
-}
-
-.project-card h3 {
-    font-family: 'Press Start 2P', cursive;
-    color: #fff;
-    font-size: 1rem;
-    margin-bottom: 1rem;
-    line-height: 1.5;
-}
-
-.project-links {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1.5rem;
-    flex-wrap: wrap;
-}
-
-.project-link {
-    color: #000;
-    background: #fff;
-    text-decoration: none;
-    border: 2px solid #fff;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    transition: all 0.3s;
-    display: inline-block;
-    text-transform: uppercase;
-    font-weight: bold;
-}
-
-.project-link:hover {
-    background: #000;
-    color: #fff;
-    transform: translate(2px, 2px);
-    box-shadow: 3px 3px 0px #333;
-}
-
-.project-link::before {
-    content: '[ ';
-}
-
-.project-link::after {
-    content: ' ]';
-}
-
-.project-tech {
-    color: #ccc;
-    font-size: 1rem;
-    margin-bottom: 1rem;
-}
-
-.project-card ul {
-    list-style: none;
-    font-size: 1.1rem;
-}
-
-.project-card li {
-    margin: 0.8rem 0;
-    padding-left: 2rem;
+/* Experience Section */
+#experience {
     position: relative;
+    padding-left: 3rem;
+    border-left: 3px solid #fff;
 }
 
-.project-card li::before {
-    content: '*';
-    position: absolute;
-    left: 0;
-    color: #ccc;
-    font-size: 1.5rem;
-}
-
-.contact-info {
-    font-size: 1.2rem;
-    line-height: 2;
-}
-
-.contact-info a {
-    color: #fff;
-    text-decoration: none;
-    transition: all 0.3s;
-    border-bottom: 2px solid transparent;
-}
-
-.contact-info a:hover {
-    border-bottom: 2px solid #fff;
-}
-
-.contact-line::before {
-    content: '$ ';
-    color: #ccc;
-}
-
-/* Experience section styles */
 .experience-card {
+    position: relative;
     background: #000;
     border: 2px solid #fff;
     border-left: 6px solid #fff;
@@ -319,16 +243,24 @@ h2::before {
     margin: 2rem 0;
     transition: all 0.3s;
     box-shadow: 6px 6px 0px #333;
+}
+
+.experience-card::before {
+    content: '';
+    position: absolute;
+    left: -1.65rem;
+    top: 1.2rem;
+    width: 15px;
+    height: 15px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px #000;
 }
 
 .experience-card:hover {
     background: #111;
     transform: translate(3px, 3px);
     box-shadow: 3px 3px 0px #333;
-}
-
-.experience-header {
-    margin-bottom: 1.5rem;
 }
 
 .experience-header h3 {
@@ -345,6 +277,7 @@ h2::before {
     gap: 0.5rem;
     font-size: 1rem;
     color: #ccc;
+    margin-bottom: 1.5rem;
 }
 
 .company {
@@ -356,18 +289,21 @@ h2::before {
     color: #999;
 }
 
-.experience-card ul {
+.experience-card ul,
+.project-card ul {
     list-style: none;
     font-size: 1.1rem;
 }
 
-.experience-card li {
+.experience-card li,
+.project-card li {
     margin: 0.8rem 0;
     padding-left: 2rem;
     position: relative;
 }
 
-.experience-card li::before {
+.experience-card li::before,
+.project-card li::before {
     content: '*';
     position: absolute;
     left: 0;
@@ -375,7 +311,7 @@ h2::before {
     font-size: 1.5rem;
 }
 
-/* Education section styles */
+/* Education Section */
 .education-card {
     background: #000;
     border: 2px solid #fff;
@@ -389,10 +325,6 @@ h2::before {
     background: #111;
     transform: translate(2px, 2px);
     box-shadow: 2px 2px 0px #333;
-}
-
-.education-header {
-    margin-bottom: 1rem;
 }
 
 .education-header h3 {
@@ -432,7 +364,99 @@ h2::before {
     color: #fff;
 }
 
-/* Project detail page styles */
+/* Projects Section */
+.project-card {
+    background: #000;
+    border: 2px solid #fff;
+    border-left: 6px solid #fff;
+    padding: 2rem;
+    margin: 2rem 0;
+    transition: all 0.3s;
+    box-shadow: 6px 6px 0px #333;
+}
+
+.project-card:hover {
+    background: #111;
+    transform: translate(3px, 3px);
+    box-shadow: 3px 3px 0px #333;
+}
+
+.project-card h3 {
+    font-family: 'Press Start 2P', cursive;
+    color: #fff;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.project-tech {
+    color: #ccc;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.project-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.project-link {
+    color: #000;
+    background: #fff;
+    text-decoration: none;
+    border: 2px solid #fff;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    transition: all 0.3s;
+    display: inline-block;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.project-link:hover {
+    background: #000;
+    color: #fff;
+    transform: translate(2px, 2px);
+    box-shadow: 3px 3px 0px #333;
+}
+
+.project-link::before {
+    content: '[ ';
+}
+
+.project-link::after {
+    content: ' ]';
+}
+
+/* Contact Section */
+.contact-info {
+    font-size: 1.2rem;
+    line-height: 2;
+}
+
+.contact-info a {
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s;
+    border-bottom: 2px solid transparent;
+}
+
+.contact-info a:hover {
+    border-bottom: 2px solid #fff;
+}
+
+.contact-line::before {
+    content: '$ ';
+    color: #ccc;
+}
+
+.resume-download {
+    margin-top: 2rem;
+}
+
+/* Project Detail Pages */
 .back-link {
     display: inline-block;
     color: #fff;
@@ -515,6 +539,11 @@ h2::before {
     box-shadow: 6px 6px 0px #333;
 }
 
+.image-placeholder iframe {
+    border: 3px solid #fff;
+    box-shadow: 6px 6px 0px #333;
+}
+
 .specs-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -542,29 +571,76 @@ h2::before {
     font-size: 1rem;
 }
 
+/* Mobile Menu */
+.hamburger {
+    display: none;
+    font-size: 2rem;
+    color: #fff;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
     h1 {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
     }
-    
+
+    h2 {
+        font-size: 1.2rem;
+    }
+
+    .hamburger {
+        display: block;
+        position: absolute;
+        top: 1rem;
+        right: 2rem;
+        z-index: 1100;
+    }
+
+    nav ul {
+        display: none;
+        flex-direction: column;
+        background: #000;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 100%;
+        border-top: 2px solid #fff;
+        padding: 1rem 0;
+    }
+
+    nav ul.show {
+        display: flex;
+    }
+
+    nav ul li {
+        text-align: center;
+        padding: 0.8rem 0;
+    }
+
+    #experience {
+        padding-left: 2rem;
+    }
+
+    .experience-card::before {
+        left: -1.15rem;
+    }
+
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+
+    section {
+        padding: 5rem 1rem 1rem;
+    }
+
     .subtitle {
         font-size: 1.2rem;
     }
-    
-    nav ul {
-        flex-wrap: wrap;
-        gap: 1rem;
-    }
-    
-    section {
-        padding: 5rem 1rem 2rem;
-    }
-    
-    .project-header h1 {
-        font-size: 1.2rem;
-    }
-    
-    h2 {
-        font-size: 1.2rem;
+
+    .terminal-line {
+        font-size: 1rem;
     }
 }
