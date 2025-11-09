@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digispark USB Development Board - Vladyslav Hirchuk</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">home</a></li>
+            <li><a href="index.html#skills">skills</a></li>
+            <li><a href="index.html#projects">projects</a></li>
+            <li><a href="index.html#contact">contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="project-detail">
+        <a href="index.html#projects" class="back-link">back to projects</a>
+        
+        <div class="project-header">
+            <h1>Digispark USB Development Board<span class="cursor"></span></h1>
+            <div class="project-tech">ATtiny85 • USB • Arduino IDE • Embedded Systems</div>
+        </div>
+
+        <div class="project-section">
+            <h3>Overview</h3>
+            <p>The Digispark USB Development Board is a compact, low-cost microcontroller platform based on the ATtiny85. 
+            It provides USB connectivity, full Arduino IDE compatibility, and is ideal for small embedded and automation projects 
+            that require minimal hardware and fast prototyping. Its small form factor and simple programming interface make it 
+            perfect for both educational use and rapid hardware experimentation.</p>
+        </div>
+
+        <div class="project-section">
+            <h3>Key Features</h3>
+            <ul>
+                <li>Powered by ATtiny85 microcontroller (8-bit RISC architecture)</li>
+                <li>USB interface for direct programming — no external programmer needed</li>
+                <li>Fully compatible with Arduino IDE via Micronucleus bootloader</li>
+                <li>6 I/O pins with PWM, ADC, and I2C support</li>
+                <li>Onboard power regulation and protection</li>
+                <li>Onboard LED for status indication and quick testing</li>
+                <li>5V operating voltage, can run from USB or external power</li>
+                <li>Compact size and breadboard-friendly layout</li>
+            </ul>
+        </div>
+
+        <div class="project-section">
+            <h3>Technical Details</h3>
+            <p><strong>Microcontroller:</strong> ATtiny85 (8 KB Flash, 512 B SRAM, 512 B EEPROM)</p>
+            <p><strong>Clock Speed:</strong> 16.5 MHz (internal oscillator)</p>
+            <p><strong>Power Supply:</strong> 5V via USB or 7–12V external source</p>
+            <p><strong>USB Interface:</strong> Built-in via software emulation (V-USB)</p>
+            <p><strong>Bootloader:</strong> Micronucleus (supports Arduino IDE)</p>
+            <p><strong>Protection:</strong> 3.6V Zener diodes for USB line voltage regulation</p>
+            <p><strong>Connectivity:</strong> 6 GPIO pins supporting PWM, ADC, I2C, and digital I/O</p>
+        </div>
+
+        <div class="project-section">
+            <h3>Hardware Components</h3>
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <div class="spec-label">Microcontroller</div>
+                    <div class="spec-value">ATtiny85</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">USB Interface</div>
+                    <div class="spec-value">V-USB (software emulation)</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Resistors</div>
+                    <div class="spec-value">68Ω (x2), 1.5kΩ pull-up</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Zener Diodes</div>
+                    <div class="spec-value">3.6V (x2) for USB voltage regulation</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Power Regulation</div>
+                    <div class="spec-value">5V supply via USB</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">LED</div>
+                    <div class="spec-value">Onboard (connected to PB1)</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-section">
+            <h3>Schematic, PCB &amp; Gerber</h3>
+            <p>Below is the schematic of the Digispark USB board. The design includes a minimal USB interface using resistors and zener diodes for voltage clamping, 
+            with the ATtiny85 directly handling USB communication through the V-USB stack. The PCB layout follows a compact form factor suitable for breadboard use.</p>
+            
+            <div class="image-placeholder">
+                <iframe 
+                    src="https://docs.google.com/viewer?url=https://raw.githubusercontent.com/SoloScriptSage/Digispark-USB/main/Digispark%20USB.pdf&embedded=true"
+                    width="100%" 
+                    height="600px">
+                </iframe>
+                <p style="margin-top: 1rem;">Digispark USB Schematic</p>
+            </div>
+
+            <div class="image-placeholder">
+                <img src="img/attiny85-pj/pcb-img.png" alt="Digispark USB PCB" style="max-width: 100%; height: auto;">
+                <p style="margin-top: 1rem;">Digispark USB PCB</p>
+            </div>
+
+            <div class="project-links">
+                <a href="https://github.com/SoloScriptSage/Digispark-USB" class="project-link" target="_blank">PCB Layout and Gerber Files</a>
+            </div>
+        </div>
+
+        <div class="project-section">
+            <h3>Challenges &amp; Improvements</h3>
+            <p><strong>USB Stability:</strong> Early prototypes showed unreliable USB enumeration on some systems. Adjusting resistor tolerances and trace length improved consistency.</p>
+            <p><strong>Firmware Upload:</strong> Occasional upload timeouts were mitigated by adding a small capacitor across the reset line to stabilize voltage transitions.</p>
+            <p><strong>Power Noise:</strong> Added decoupling capacitors near the ATtiny85 to reduce noise from USB power.</p>
+            <p><strong>Future Improvements:</strong> Integrate onboard voltage regulator for wider input range, add reset button, and optional micro-USB connector for improved durability.</p>
+        </div>
+
+        <div class="project-section">
+            <h3>Resources</h3>
+            <div class="project-links">
+                <a href="https://github.com/micronucleus/micronucleus" class="project-link" target="_blank">Micronucleus Bootloader</a>
+                <a href="https://github.com/digistump/DigistumpArduino" class="project-link" target="_blank">Digistump Arduino Core</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

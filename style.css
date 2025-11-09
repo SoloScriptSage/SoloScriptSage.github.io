@@ -364,7 +364,59 @@ h2::before {
     color: #fff;
 }
 
+/* Project Categories */
+.project-category {
+    margin: 4rem 0;
+}
+
+.category-title {
+    font-family: 'Press Start 2P', cursive;
+    color: #fff;
+    font-size: 1.2rem;
+    margin: 3rem 0 2rem 0;
+    padding: 1rem 0;
+    border-top: 3px solid #fff;
+    border-bottom: 3px solid #fff;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 3px 3px 0px #333;
+    line-height: 1.8;
+    background: linear-gradient(90deg, transparent 0%, #111 20%, #111 80%, transparent 100%);
+}
+
+.category-title::before {
+    content: '[ ';
+    color: #ccc;
+}
+
+.category-title::after {
+    content: ' ]';
+    color: #ccc;
+}
+
+/* Add spacing between categories */
+.project-category:first-of-type {
+    margin-top: 2rem;
+}
+
+.project-category:nth-child(2) .category-title {
+}
+
+.project-category:nth-child(3) .category-title {
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .category-title {
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+        padding: 0.8rem 0;
+    }
+}
+
 /* Projects Section */
+
 .project-card {
     background: #000;
     border: 2px solid #fff;

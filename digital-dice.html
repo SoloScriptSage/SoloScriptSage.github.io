@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Dice - Electronic Random Number Generator - Vladyslav Hirchuk</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">home</a></li>
+            <li><a href="index.html#skills">skills</a></li>
+            <li><a href="index.html#projects">projects</a></li>
+            <li><a href="index.html#contact">contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="project-detail">
+        <a href="index.html#projects" class="back-link">back to projects</a>
+        
+        <div class="project-header">
+            <h1>Digital Dice - Electronic Random Number Generator<span class="cursor"></span></h1>
+            <div class="project-tech">555 Timer • 74LS Logic • 7-Segment Display • PCB Design</div>
+        </div>
+
+        <div class="project-section">
+            <h3>Overview</h3>
+            <p>A classic digital dice circuit that generates random numbers from 1 to 6, displayed on a 7-segment display. 
+            When you press the button, the 555 timer oscillates at high frequency through a counter, creating a pseudo-random 
+            number generator. Releasing the button stops the counter and displays the result.</p>
+            <p>This project demonstrates fundamental digital electronics principles including timer circuits, binary counting, 
+            BCD-to-7-segment decoding, and PCB design. Perfect for learning the building blocks of digital logic systems.</p>
+        </div>
+
+        <div class="image-placeholder">
+            <img src="img/digital-dice/board-3d.png" alt="Digital Dice 3D Render" style="max-width: 100%; height: auto;">
+            <p style="margin-top: 1rem;">Digital Dice PCB - 3D Render</p>
+        </div>
+
+        <div class="project-section">
+            <h3>Key Features</h3>
+            <ul>
+                <li>True random generation using 555 timer high-frequency oscillator</li>
+                <li>Single 7-segment display shows numbers 1-6</li>
+                <li>Push-button operation - press to roll, release to stop</li>
+                <li>Power indicator LED for status</li>
+                <li>Regulated 5V power supply with LM7805</li>
+                <li>Classic TTL logic using 74LS series ICs</li>
+                <li>Barrel jack input for easy powering (7-12V DC)</li>
+                <li>Through-hole components for easy hand assembly</li>
+            </ul>
+        </div>
+
+        <div class="project-section">
+            <h3>How It Works</h3>
+            <p><strong>Power Supply Section:</strong> The LM7805 voltage regulator converts the 7-12V input from the barrel jack 
+            to a stable 5V required by the logic ICs. Filtering capacitors (0.33µF and 0.1µF) ensure clean, stable power throughout 
+            the circuit.</p>
+            
+            <p><strong>Clock Generator (555 Timer):</strong> The NE555 is configured as an astable multivibrator, generating a 
+            high-frequency square wave around 100kHz. The frequency is set by resistor R10 (100kΩ) and capacitor C4 (0.01µF). 
+            When the button is pressed, this rapid oscillation drives the counter.</p>
+            
+            <p><strong>Counter (74LS90):</strong> The 74LS90 decade counter receives clock pulses from the 555 timer and counts 
+            in binary-coded decimal (BCD). The 74LS11 triple AND gate is used to configure the counter to reset after reaching 6, 
+            creating a true dice effect that only counts 1-6 instead of 0-9.</p>
+            
+            <p><strong>Display Driver (74LS47):</strong> The 74LS47 BCD-to-7-segment decoder converts the binary count from the 
+            74LS90 into the appropriate segments to light up on the display. Current-limiting resistors (220Ω) protect the LED 
+            segments from excessive current while maintaining good brightness.</p>
+        </div>
+
+        <div class="project-section">
+            <h3>Technical Specifications</h3>
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <div class="spec-label">Input Voltage</div>
+                    <div class="spec-value">7-12V DC</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Regulated Output</div>
+                    <div class="spec-value">5V (LM7805)</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Display Type</div>
+                    <div class="spec-value">7-Seg Common Cathode</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Logic Family</div>
+                    <div class="spec-value">74LS TTL Series</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Clock Frequency</div>
+                    <div class="spec-value">~100 kHz</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Power Consumption</div>
+                    <div class="spec-value">50-100 mA</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">PCB Layers</div>
+                    <div class="spec-value">2-layer FR4</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Component Type</div>
+                    <div class="spec-value">Through-hole</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-section">
+            <h3>Bill of Materials</h3>
+            <p><strong>Integrated Circuits:</strong></p>
+            <ul>
+                <li>U1: NE555D - Timer IC (DIP-8)</li>
+                <li>U2: 74LS90 - Decade Counter (DIP-14)</li>
+                <li>U3: 74LS47 - BCD to 7-Segment Decoder (DIP-16)</li>
+                <li>U4: SC39-11EWA - 7-Segment Display, Common Cathode</li>
+                <li>U5: LM7805 - 5V Voltage Regulator (TO-220)</li>
+                <li>U6: 74LS11 - Triple 3-input AND Gate (DIP-14)</li>
+            </ul>
+
+            <p><strong>Passive Components:</strong></p>
+            <ul>
+                <li>R1, R2: 10kΩ resistor (×2) - Pull-up/Pull-down</li>
+                <li>R5: 220Ω resistor - LED current limiting</li>
+                <li>R10: 100kΩ resistor - 555 timing</li>
+                <li>C3: 0.1µF ceramic capacitor - Power decoupling</li>
+                <li>C4: 0.01µF ceramic capacitor - 555 timing</li>
+                <li>C5: 0.33µF electrolytic capacitor - Voltage regulation</li>
+            </ul>
+
+            <p><strong>Other Components:</strong></p>
+            <ul>
+                <li>D1: Red LED 5mm - Power indicator</li>
+                <li>SW1, SW2: Tactile push buttons</li>
+                <li>J1: DC Barrel Jack (2.1mm center positive)</li>
+                <li>IC Sockets: DIP-8, DIP-14, DIP-16 (recommended)</li>
+            </ul>
+
+            <p style="margin-top: 1rem;"><strong>Estimated total component cost: $5-10 USD</strong></p>
+        </div>
+
+        <div class="project-section">
+            <h3>Schematic & PCB Design</h3>
+            <p>The schematic is organized into four logical sections: power supply, clock generator, counter/random number 
+            generator, and display output. This modular approach makes the circuit easy to understand, troubleshoot, and modify.</p>
+            
+            <div class="image-placeholder">
+                <iframe 
+                    src="https://docs.google.com/viewer?url=https://raw.githubusercontent.com/SoloScriptSage/Digital-Dice/main/docs/digital_dice.pdf&embedded=true"
+                    width="100%" 
+                    height="600px">
+                </iframe>
+                <p style="margin-top: 1rem;">Digital Dice Schematic - Complete Circuit</p>
+            </div>
+
+            <p style="margin-top: 2rem;">The PCB layout prioritizes clean signal routing and proper power distribution. 
+            Ground and power traces are kept wide to minimize resistance and voltage drops. The 7-segment display is positioned 
+            for easy viewing, while components are arranged to minimize trace lengths and reduce noise.</p>
+
+            <div class="project-links">
+                <a href="https://github.com/SoloScriptSage/Digital-Dice" class="project-link" target="_blank">View PCB Layout & Gerber Files</a>
+            </div>
+        </div>
+
+        <div class="project-section">
+            <h3>Assembly Instructions</h3>
+            <p><strong>Step 1:</strong> Install IC sockets first (highly recommended). This allows you to swap ICs easily 
+            if troubleshooting is needed and prevents damage from soldering heat.</p>
+
+            <p><strong>Step 2:</strong> Solder resistors and small ceramic capacitors (C3, C4). These components are heat-resistant 
+            and serve as good practice for beginners.</p>
+
+            <p><strong>Step 3:</strong> Install the electrolytic capacitor (C5) - pay attention to polarity! The negative leg 
+            (marked with a stripe) goes to ground.</p>
+
+            <p><strong>Step 4:</strong> Mount the LM7805 voltage regulator. A small heatsink is optional but recommended if 
+            you're using higher input voltages (10-12V).</p>
+
+            <p><strong>Step 5:</strong> Install the barrel jack, push buttons, and LED (watch polarity - long leg is positive).</p>
+
+            <p><strong>Step 6:</strong> Mount the 7-segment display last. Double-check the datasheet pinout - installing it 
+            backwards won't damage it, but it won't work!</p>
+
+            <p><strong>Step 7:</strong> Insert ICs into their sockets, being careful to match pin 1 (look for the notch or dot). 
+            Gently bend pins if needed to fit the socket.</p>
+
+            <p><strong>Step 8:</strong> Before powering on, visually inspect all solder joints and verify there are no shorts 
+            between traces. Use a multimeter to check that 5V appears at the regulator output before inserting ICs.</p>
+        </div>
+
+        <div class="project-section">
+            <h3>Usage & Operation</h3>
+            <p><strong>1. Power Connection:</strong> Connect a 7-12V DC power adapter to the barrel jack (center positive). 
+            The power LED should illuminate immediately.</p>
+
+            <p><strong>2. Rolling the Dice:</strong> Press and hold the button. You'll see the display rapidly cycling through 
+            numbers as the counter runs at high speed.</p>
+
+            <p><strong>3. Getting Your Result:</strong> Release the button at any time. The display will freeze on whatever 
+            number the counter was at - that's your random result (1-6)!</p>
+
+            <p><strong>4. Roll Again:</strong> Simply press the button again. Each press creates a new random number based 
+            on the precise timing of when you release the button.</p>
+
+            <p style="margin-top: 1rem;"><strong>Why is this random?</strong> The 555 timer oscillates at approximately 100,000 
+            times per second - far too fast for any human to time precisely. When you release the button, the exact moment is 
+            unpredictable, making the result effectively random!</p>
+        </div>
+
+        <div class="project-section">
+            <h3>Skills Demonstrated</h3>
+            <ul>
+                <li>Digital logic design - counters, decoders, and logic gates</li>
+                <li>555 timer circuits - astable multivibrator configuration</li>
+                <li>Power supply design - voltage regulation and filtering</li>
+                <li>PCB layout and design using KiCad</li>
+                <li>Through-hole component assembly and soldering</li>
+                <li>BCD (Binary-Coded Decimal) and 7-segment display interfacing</li>
+                <li>Schematic capture and documentation</li>
+                <li>Manufacturing-ready design - gerber file generation</li>
+            </ul>
+        </div>
+
+        <div class="project-section">
+            <h3>Troubleshooting Tips</h3>
+            <p><strong>Display shows nothing:</strong> Check power connections first. Verify 5V at the regulator output. 
+            Ensure ICs are inserted correctly (pin 1 orientation). Check that the 7-segment display isn't installed backwards.</p>
+
+            <p><strong>Display shows wrong numbers:</strong> Verify connections between 74LS90 counter and 74LS47 decoder. 
+            Check BCD output pins on the counter match decoder input pins.</p>
+
+            <p><strong>Button doesn't work:</strong> Check continuity on the button. Verify pull-up/pull-down resistors 
+            are in place. Ensure 555 timer is receiving proper power and ground.</p>
+
+            <p><strong>Always shows same number:</strong> 555 timer may not be oscillating. Check R10 and C4 values. 
+            Measure pin 3 (output) of the 555 with an oscilloscope or LED.</p>
+
+            <p><strong>Numbers change without pressing button:</strong> Check for loose connections or intermittent solder joints. 
+            Verify decoupling capacitors are properly installed near ICs.</p>
+        </div>
+
+        <div class="project-section">
+            <h3>Future Improvements (v2.0)</h3>
+            <ul>
+                <li>Add a second 7-segment display for "double dice" mode (2-12 range)</li>
+                <li>Include piezo buzzer for sound effects when rolling</li>
+                <li>Add "hold" button to freeze the display temporarily</li>
+                <li>Create an SMD version for more compact size</li>
+                <li>Battery power option with 9V battery clip and on/off switch</li>
+                <li>Automatic roll mode with adjustable timer</li>
+                <li>Add RGB LED for visual effects during rolling</li>
+            </ul>
+        </div>
+
+        <div class="project-section">
+            <h3>Learning Resources</h3>
+            <p>This project is an excellent introduction to several fundamental concepts in electronics:</p>
+            <ul>
+                <li>555 Timer IC - Learn about one of the most versatile ICs ever created</li>
+                <li>Binary and BCD counting - Understanding how digital systems count</li>
+                <li>7-segment displays - Common output device in embedded systems</li>
+                <li>TTL logic families - The building blocks of digital electronics</li>
+                <li>PCB design workflow - From schematic to manufactured board</li>
+            </ul>
+            <p style="margin-top: 1rem;">Perfect for beginners in electronics, students learning digital logic, 
+            or anyone wanting hands-on experience with classic IC-based circuits!</p>
+        </div>
+
+        <div class="project-section">
+            <h3>Project Files & Resources</h3>
+            <div class="project-links">
+                <a href="https://github.com/SoloScriptSage/Digital-Dice" class="project-link" target="_blank">GitHub Repository</a>
+                <a href="https://github.com/SoloScriptSage/Digital-Dice/tree/main/gerbers" class="project-link" target="_blank">Download Gerber Files</a>
+                <a href="https://github.com/SoloScriptSage/Digital-Dice/blob/main/docs/BOM.csv" class="project-link" target="_blank">Bill of Materials (CSV)</a>
+            </div>
+            
+            <p style="margin-top: 2rem; font-size: 1rem; color: #ccc;">
+                <strong>License:</strong> This project is open source hardware under the MIT License. Feel free to build, 
+                modify, and learn from the design. Attribution appreciated but not required!
+            </p>
+            
+            <p style="margin-top: 1rem; font-size: 1rem; color: #ccc;">
+                If you build this project, I'd love to see it! Open an issue on GitHub with photos of your build.
+            </p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

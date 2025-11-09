@@ -161,7 +161,7 @@
                 <div class="education-meta">
                     <span class="institution">College of DuPage</span>
                     <span class="location">Illinois, USA</span>
-                    <span class="period">August 2023 – May 2026</span>
+                    <span class="period">August 2022 – May 2024</span>
                 </div>
             </div>
             <div class="education-focus">Focus: Advanced C++, Python, Java, Cybersecurity, UI/UX, Databases</div>
@@ -183,61 +183,101 @@
     <section id="projects">
         <h2>PROJECTS</h2>
         
-        <div class="project-card">
-            <h3>WinAPI System Monitor</h3>
-            <div class="project-tech">C++ • Windows API • System Programming</div>
-            <ul>
-                <li>Built native Windows application using pure Windows API for system resource monitoring</li>
-                <li>Implemented low-level system calls for CPU, memory, and process tracking</li>
-                <li>Demonstrated deep understanding of Win32 programming and system-level architecture</li>
-                <li>Focus on performance and minimal resource overhead</li>
-            </ul>
-            <div class="project-links">
-                <a href="https://github.com/SoloScriptSage/winapi-system-monitor" class="project-link" target="_blank">GitHub</a>
+        <!-- Hardware & Electronics Projects -->
+        <div class="project-category">
+            <h3 class="category-title">Hardware & Electronics</h3>
+            
+            <div class="project-card">
+                <h3>Digital Dice - Electronic Random Number Generator</h3>
+                <div class="project-tech">555 Timer • 74LS Logic • 7-Segment Display • PCB Design</div>
+                <ul>
+                    <li>Classic digital dice circuit generating random numbers 1-6</li>
+                    <li>555 timer-based high-frequency oscillator for true randomness</li>
+                    <li>Complete through-hole design with 74LS TTL logic ICs</li>
+                    <li>Designed in KiCad with manufacturing-ready gerber files</li>
+                </ul>
+                <div class="project-links">
+                    <a href="digital-dice.html" class="project-link">Full Details</a>
+                    <a href="https://github.com/SoloScriptSage/Digital-Dice" class="project-link" target="_blank">GitHub</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3>Digispark USB Development Board</h3>
+                <div class="project-tech">ATtiny85 • USB • Arduino IDE • Embedded Systems</div>
+                <ul>
+                    <li>Designed a compact, low-cost microcontroller board based on ATtiny85</li>
+                    <li>Integrated USB connectivity via V-USB for direct programming without an external programmer</li>
+                    <li>Fully compatible with Arduino IDE using the Micronucleus bootloader</li>
+                    <li>Developed custom PCB layout and schematic with KiCad, optimized for prototyping and automation</li>
+                </ul>
+                <div class="project-links">
+                    <a href="digispark-usb.html" class="project-link">Full Details</a>
+                    <a href="https://github.com/SoloScriptSage/Digispark-USB" class="project-link" target="_blank">GitHub</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3>Robotic Hand Prototype</h3>
+                <div class="project-tech">Arduino • C++ • Embedded Systems</div>
+                <ul>
+                    <li>Designed adaptive prosthetic hand with wireless control using Arduino Nano</li>
+                    <li>Programmed embedded C++ for real-time motor control and sensor processing</li>
+                    <li>Implemented adaptive grip algorithms responding to pressure sensors</li>
+                    <li>Created communication protocol for low-latency wireless command transmission</li>
+                </ul>
+                <div class="project-links">
+                    <a href="robotic-hand.html" class="project-link">Full Details</a>
+                    <a href="https://github.com/SoloScriptSage/robotic-hand-project" class="project-link" target="_blank">GitHub</a>
+                </div>
             </div>
         </div>
 
-        <div class="project-card">
-            <h3>Ray-Ban Voice Camera HUD</h3>
-            <div class="project-tech">Python • C++ • Computer Vision • Speech Recognition</div>
-            <ul>
-                <li>Developed voice-controlled camera system with offline speech-to-text using Vosk</li>
-                <li>Integrated OpenCV for real-time video processing with face detection and hand tracking</li>
-                <li>Implemented multi-threaded audio/video recording with synchronization</li>
-                <li>Built dynamic overlay system with command debouncing and state management</li>
-            </ul>
-            <div class="project-links">
-                <a href="rayban.html" class="project-link">Full Details</a>
-                <a href="https://github.com/SoloScriptSage/rayband-voice-cam" class="project-link" target="_blank">GitHub</a>
+        <!-- Software & Systems Projects -->
+        <div class="project-category">
+            <h3 class="category-title">Software & Systems</h3>
+            
+            <div class="project-card">
+                <h3>WinAPI System Monitor</h3>
+                <div class="project-tech">C++ • Windows API • System Programming</div>
+                <ul>
+                    <li>Built native Windows application using pure Windows API for system resource monitoring</li>
+                    <li>Implemented low-level system calls for CPU, memory, and process tracking</li>
+                    <li>Demonstrated deep understanding of Win32 programming and system-level architecture</li>
+                    <li>Focus on performance and minimal resource overhead</li>
+                </ul>
+                <div class="project-links">
+                    <a href="https://github.com/SoloScriptSage/winapi-system-monitor" class="project-link" target="_blank">GitHub</a>
+                </div>
             </div>
-        </div>
 
-        <div class="project-card">
-            <h3>8deck-s17: Blackjack Simulator</h3>
-            <div class="project-tech">C++ • Algorithm Design • Statistical Analysis</div>
-            <ul>
-                <li>Developed Monte Carlo simulation engine for 8-deck blackjack</li>
-                <li>Implemented card counting strategies and probability analysis algorithms</li>
-                <li>Optimized performance for large-scale simulations analyzing millions of hands</li>
-                <li>Applied statistical methods to evaluate game profitability</li>
-            </ul>
-            <div class="project-links">
-                <a href="https://github.com/SoloScriptSage/8deck-s17" class="project-link" target="_blank">GitHub</a>
+            <div class="project-card">
+                <h3>Ray-Ban Voice Camera HUD</h3>
+                <div class="project-tech">Python • C++ • Computer Vision • Speech Recognition</div>
+                <ul>
+                    <li>Developed voice-controlled camera system with offline speech-to-text using Vosk</li>
+                    <li>Integrated OpenCV for real-time video processing with face detection and hand tracking</li>
+                    <li>Implemented multi-threaded audio/video recording with synchronization</li>
+                    <li>Built dynamic overlay system with command debouncing and state management</li>
+                </ul>
+                <div class="project-links">
+                    <a href="rayban.html" class="project-link">Full Details</a>
+                    <a href="https://github.com/SoloScriptSage/rayband-voice-cam" class="project-link" target="_blank">GitHub</a>
+                </div>
             </div>
-        </div>
 
-        <div class="project-card">
-            <h3>Robotic Hand Prototype</h3>
-            <div class="project-tech">Arduino • C++ • Embedded Systems</div>
-            <ul>
-                <li>Designed adaptive prosthetic hand with wireless control using Arduino Nano</li>
-                <li>Programmed embedded C++ for real-time motor control and sensor processing</li>
-                <li>Implemented adaptive grip algorithms responding to pressure sensors</li>
-                <li>Created communication protocol for low-latency wireless command transmission</li>
-            </ul>
-            <div class="project-links">
-                <a href="robotic-hand.html" class="project-link">Full Details</a>
-                <a href="https://github.com/SoloScriptSage/robotic-hand-project" class="project-link" target="_blank">GitHub</a>
+            <div class="project-card">
+                <h3>8deck-s17: Blackjack Simulator</h3>
+                <div class="project-tech">C++ • Algorithm Design • Statistical Analysis</div>
+                <ul>
+                    <li>Developed Monte Carlo simulation engine for 8-deck blackjack</li>
+                    <li>Implemented card counting strategies and probability analysis algorithms</li>
+                    <li>Optimized performance for large-scale simulations analyzing millions of hands</li>
+                    <li>Applied statistical methods to evaluate game profitability</li>
+                </ul>
+                <div class="project-links">
+                    <a href="https://github.com/SoloScriptSage/8deck-s17" class="project-link" target="_blank">GitHub</a>
+                </div>
             </div>
         </div>
     </section>
