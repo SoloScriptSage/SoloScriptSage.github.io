@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>xNAV650-Ouster Adapter Enclosure - Vladyslav Hirchuk</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .tab-navigation {
+            display: flex;
+            gap: 0;
+            margin: 2rem 0;
+            border: 2px solid #fff;
+            background: #000;
+            box-shadow: 4px 4px 0px #333;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 1rem;
+            background: #000;
+            color: #fff;
+            border: none;
+            border-right: 2px solid #fff;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+
+        .tab-btn:last-child {
+            border-right: none;
+        }
+
+        .tab-btn:hover {
+            background: #111;
+        }
+
+        .tab-btn.active {
+            background: #fff;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .tab-btn.active::before {
+            content: '> ';
+            color: #000;
+        }
+
+        .tab-panel {
+            display: none;
+            animation: fadeIn 0.3s;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .canvas-container {
+            background: #000;
+            border: 3px solid #fff;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 6px 6px 0px #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+        }
+
+        canvas {
+            max-width: 100%;
+            border: 2px solid #333;
+        }
+
+        .controls-box {
+            background: #000;
+            border: 2px solid #fff;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            box-shadow: 4px 4px 0px #333;
+        }
+
+        .controls-box h4 {
+            font-family: 'Press Start 2P', cursive;
+            color: #fff;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .controls-box h4::before {
+            content: '$ ';
+            color: #ccc;
+        }
+
+        .control-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .control-btn {
+            background: #fff;
+            color: #000;
+            border: 2px solid #fff;
+            padding: 0.8rem 1.5rem;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .control-btn:hover {
+            background: #000;
+            color: #fff;
+            transform: translate(2px, 2px);
+            box-shadow: 3px 3px 0px #333;
+        }
+
+        .control-btn::before {
+            content: '[ ';
+        }
+
+        .control-btn::after {
+            content: ' ]';
+        }
+
+        .info-terminal {
+            background: #000;
+            border: 2px solid #fff;
+            border-left: 6px solid #fff;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            box-shadow: 4px 4px 0px #333;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .info-terminal::before {
+            content: '⚠️ ';
+            color: #fff;
+            font-size: 1.2rem;
+        }
+
+        .info-terminal strong {
+            color: #fff;
+        }
+
+        .dimensions-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: #000;
+            border: 2px solid #fff;
+            box-shadow: 4px 4px 0px #333;
+        }
+
+        .dimensions-table th,
+        .dimensions-table td {
+            padding: 1rem;
+            text-align: left;
+            border: 1px solid #fff;
+            font-size: 1rem;
+        }
+
+        .dimensions-table th {
+            background: #fff;
+            color: #000;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7rem;
+        }
+
+        .dimensions-table td {
+            color: #ccc;
+        }
+
+        .dimensions-table tr:hover td {
+            background: #111;
+        }
+
+        .assembly-step {
+            background: #000;
+            border: 2px solid #fff;
+            border-left: 6px solid #22c55e;
+            padding: 1.5rem;
+            padding-left: 3rem;
+            margin: 1.5rem 0;
+            position: relative;
+            box-shadow: 4px 4px 0px #333;
+        }
+
+        .assembly-step::before {
+            content: counter(step);
+            counter-increment: step;
+            position: absolute;
+            left: 0.8rem;
+            top: 1.5rem;
+            background: #22c55e;
+            color: #000;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .assembly-steps {
+            counter-reset: step;
+        }
+
+        .assembly-step h4 {
+            font-family: 'Press Start 2P', cursive;
+            color: #fff;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .assembly-step p {
+            color: #ccc;
+            line-height: 1.8;
+        }
+
+        .option-card {
+            background: #000;
+            border: 2px solid #fff;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: 4px 4px 0px #333;
+            transition: all 0.3s;
+        }
+
+        .option-card:hover {
+            background: #111;
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px #333;
+        }
+
+        .option-card h4 {
+            font-family: 'Press Start 2P', cursive;
+            color: #fff;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .option-card ul {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .option-card li {
+            margin: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: #ccc;
+        }
+
+        .option-card li::before {
+            content: '→ ';
+            position: absolute;
+            left: 0;
+            color: #fff;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: #000;
+            border: 2px solid #fff;
+            box-shadow: 6px 6px 0px #333;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid #fff;
+        }
+
+        .comparison-table th {
+            background: #fff;
+            color: #000;
+            font-weight: bold;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7rem;
+        }
+
+        .comparison-table td {
+            color: #ccc;
+        }
+
+        .comparison-table tr:hover td {
+            background: #111;
+        }
+
+        .download-box {
+            background: #22c55e;
+            color: #000;
+            border: 3px solid #fff;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            box-shadow: 6px 6px 0px #333;
+        }
+
+        .download-box h3 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .download-box p {
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .download-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .tab-btn {
+                font-size: 0.7rem;
+                padding: 0.8rem 0.5rem;
+            }
+
+            .control-buttons {
+                flex-direction: column;
+            }
+
+            .control-btn {
+                width: 100%;
+            }
+
+            .download-links {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">home</a></li>
+            <li><a href="index.html#skills">skills</a></li>
+            <li><a href="index.html#projects">projects</a></li>
+            <li><a href="index.html#contact">contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="project-detail">
+        <a href="index.html#projects" class="back-link">back to projects</a>
+        
+        <div class="project-header">
+            <h1>xNAV650-Ouster Adapter Enclosure<span class="cursor"></span></h1>
+            <div class="project-tech">PCB Design • 3D Modeling • Enclosure Design • GPS/LiDAR Integration</div>
+        </div>
+
+        <div class="project-section">
+            <h3>Overview</h3>
+            <p>Custom adapter enclosure designed to interface xNAV650 GPS/INS system with Ouster LiDAR sensors. The project includes complete PCB design, 3D-printable enclosure with precise mounting specifications, and comprehensive assembly documentation. Features integrated power regulation, signal conditioning, and PPS synchronization for precise time-stamped LiDAR point clouds.</p>
+            <p>This design demonstrates practical embedded systems integration, mechanical CAD skills, and understanding of high-precision sensor synchronization requirements for autonomous vehicle applications.</p>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="tab-navigation">
+            <button class="tab-btn active" onclick="switchTab('view3d')">3D View</button>
+            <button class="tab-btn" onclick="switchTab('dimensions')">Dimensions</button>
+            <button class="tab-btn" onclick="switchTab('drilling')">Drilling</button>
+            <button class="tab-btn" onclick="switchTab('assembly')">Assembly</button>
+            <button class="tab-btn" onclick="switchTab('options')">Options</button>
+        </div>
+
+        <!-- Tab 1: 3D View -->
+        <div id="view3d" class="tab-panel active">
+            <div class="project-section">
+                <h3>Interactive 3D Visualization</h3>
+                <div class="canvas-container">
+                    <canvas id="canvas3d"></canvas>
+                </div>
+
+                <div class="controls-box">
+                    <h4>View Controls</h4>
+                    <p style="color: #ccc; margin-bottom: 1rem;">💡 Drag to rotate • Scroll to zoom</p>
+                    <div class="control-buttons">
+                        <button class="control-btn" onclick="resetView()">Reset View</button>
+                        <button class="control-btn" onclick="toggleExploded()">Exploded View</button>
+                        <button class="control-btn" onclick="toggleLid()">Show/Hide Lid</button>
+                    </div>
+                </div>
+
+                <div class="specs-grid">
+                    <div class="spec-item">
+                        <div class="spec-label">External Dimensions</div>
+                        <div class="spec-value">90×60×30mm</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">Material</div>
+                        <div class="spec-value">ABS/PETG</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">PCB Space</div>
+                        <div class="spec-value">65×45mm</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">Mounting</div>
+                        <div class="spec-value">4× M3 Standoffs</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">Connectors</div>
+                        <div class="spec-value">Micro-D 15, DC Jack</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">Ventilation</div>
+                        <div class="spec-value">Side Slots</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 2: Dimensions -->
+        <div id="dimensions" class="tab-panel">
+            <div class="project-section">
+                <h3>Detailed Dimensions</h3>
+                
+                <div class="info-terminal">
+                    <strong>IMPORTANT:</strong> All dimensions in millimeters. Tolerance: ±0.5mm for 3D printing, ±0.2mm for CNC machining.
+                </div>
+
+                <h3 style="margin-top: 2rem;">Main Enclosure (Bottom Part)</h3>
+                <table class="dimensions-table">
+                    <tr>
+                        <th>Element</th>
+                        <th>Dim X</th>
+                        <th>Dim Y</th>
+                        <th>Dim Z</th>
+                        <th>Notes</th>
+                    </tr>
+                    <tr>
+                        <td>External dimensions</td>
+                        <td>90mm</td>
+                        <td>60mm</td>
+                        <td>20mm</td>
+                        <td>Wall thickness 2mm</td>
+                    </tr>
+                    <tr>
+                        <td>Internal space</td>
+                        <td>86mm</td>
+                        <td>56mm</td>
+                        <td>18mm</td>
+                        <td>Clear working space</td>
+                    </tr>
+                    <tr>
+                        <td>PCB standoffs</td>
+                        <td>60mm spacing</td>
+                        <td>40mm spacing</td>
+                        <td>10mm height</td>
+                        <td>M3 holes, 4 pieces</td>
+                    </tr>
+                    <tr>
+                        <td>Micro-D hole</td>
+                        <td>-</td>
+                        <td>20mm</td>
+                        <td>10mm</td>
+                        <td>Left side, centered</td>
+                    </tr>
+                    <tr>
+                        <td>DC Jack hole</td>
+                        <td>-</td>
+                        <td>Ø8mm</td>
+                        <td>-</td>
+                        <td>Left side, 10mm from top</td>
+                    </tr>
+                    <tr>
+                        <td>Cable output</td>
+                        <td>20mm</td>
+                        <td>-</td>
+                        <td>8mm</td>
+                        <td>Rear wall, centered</td>
+                    </tr>
+                    <tr>
+                        <td>LED hole</td>
+                        <td>-</td>
+                        <td>Ø5.5mm</td>
+                        <td>-</td>
+                        <td>Front wall, upper right</td>
+                    </tr>
+                </table>
+
+                <h3 style="margin-top: 2rem;">Lid (Top Part)</h3>
+                <table class="dimensions-table">
+                    <tr>
+                        <th>Element</th>
+                        <th>Dimension</th>
+                        <th>Notes</th>
+                    </tr>
+                    <tr>
+                        <td>External dimensions</td>
+                        <td>90×60×10mm</td>
+                        <td>Wall thickness 2mm</td>
+                    </tr>
+                    <tr>
+                        <td>Mounting groove</td>
+                        <td>86×56×2mm</td>
+                        <td>Fits bottom part</td>
+                    </tr>
+                    <tr>
+                        <td>Screw holes</td>
+                        <td>4× M3</td>
+                        <td>Corners, 5mm from edge</td>
+                    </tr>
+                    <tr>
+                        <td>Vent slots</td>
+                        <td>6× (1×15mm)</td>
+                        <td>Sides, for heat dissipation</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tab 3: Drilling -->
+        <div id="drilling" class="tab-panel">
+            <div class="project-section">
+                <h3>Drilling Template</h3>
+                
+                <div class="info-terminal">
+                    <strong>NOTE:</strong> If using off-the-shelf enclosure (Hammond 1591XXSSBK), use coordinates below to mark holes before drilling.
+                </div>
+
+                <div class="canvas-container">
+                    <canvas id="drillingTemplate" width="800" height="600" style="background: #fff;"></canvas>
+                </div>
+
+                <h3 style="margin-top: 2rem;">Drilling Instructions</h3>
+                <div class="assembly-steps">
+                    <div class="assembly-step">
+                        <h4>Preparation</h4>
+                        <p>Print or draw template at 1:1 scale. Secure with tape to enclosure. Use center punch to mark hole centers before drilling.</p>
+                    </div>
+                    <div class="assembly-step">
+                        <h4>Drilling Holes</h4>
+                        <p><strong>DC Jack (Ø8mm):</strong> Drill from outside to inside. Start with 3mm pilot, then gradually increase (5mm, 6mm, 8mm).<br>
+                        <strong>LED (Ø5.5mm):</strong> 5.5mm hole, press-fit LED with holder.<br>
+                        <strong>Micro-D 15:</strong> Best cut with sharp knife or use file to shape.</p>
+                    </div>
+                    <div class="assembly-step">
+                        <h4>Cable Opening</h4>
+                        <p>For Ouster wires: drill 6mm hole, then expand with file to 8×20mm rectangle. Use rubber grommet for cable protection.</p>
+                    </div>
+                    <div class="assembly-step">
+                        <h4>M3 Mounting Holes</h4>
+                        <p>Ø3.2mm drill for free M3 screw passage. For threading in plastic, use Ø2.5mm and tap M3 thread.</p>
+                    </div>
+                    <div class="assembly-step">
+                        <h4>Finishing</h4>
+                        <p>Remove all burrs with file or sandpaper. Clean enclosure from debris. Check fit of all connectors before assembly.</p>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 2rem;">Hole Reference Table</h3>
+                <table class="dimensions-table">
+                    <tr>
+                        <th>Hole</th>
+                        <th>Position</th>
+                        <th>Size</th>
+                        <th>Tool</th>
+                    </tr>
+                    <tr>
+                        <td>DC Jack (J3)</td>
+                        <td>Left wall, X=0, Y=30mm, Z=20mm</td>
+                        <td>Ø8mm</td>
+                        <td>8mm drill bit</td>
+                    </tr>
+                    <tr>
+                        <td>Micro-D 15 (J1)</td>
+                        <td>Left wall, X=0, Y=30mm, Z=10mm</td>
+                        <td>20×10mm rect</td>
+                        <td>Knife/file</td>
+                    </tr>
+                    <tr>
+                        <td>LED (green)</td>
+                        <td>Front wall, X=75mm, Y=5mm</td>
+                        <td>Ø5.5mm</td>
+                        <td>5.5mm drill</td>
+                    </tr>
+                    <tr>
+                        <td>Ouster cables</td>
+                        <td>Rear wall, X=45mm, Z=15mm</td>
+                        <td>20×8mm rect</td>
+                        <td>6mm drill + file</td>
+                    </tr>
+                    <tr>
+                        <td>Ventilation (6×)</td>
+                        <td>Lid sides, evenly spaced</td>
+                        <td>1×15mm slots</td>
+                        <td>Drill + file/mill</td>
+                    </tr>
+                    <tr>
+                        <td>Lid mount (4×)</td>
+                        <td>Corners, 5mm from edge</td>
+                        <td>Ø3.2mm</td>
+                        <td>3.2mm drill</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tab 4: Assembly -->
+        <div id="assembly" class="tab-panel">
+            <div class="project-section">
+                <h3>Complete Assembly Instructions</h3>
+
+                <div class="assembly-steps">
+                    <div class="assembly-step">
+                        <h4>Enclosure Preparation</h4>
+                        <p>If 3D printing: clean supports, smooth surfaces with P400-P800 sandpaper. If using off-the-shelf: drill all holes according to template from "Drilling" tab.</p>
+                    </div>
+
+                    <div class="assembly-step">
+                        <h4>PCB Standoff Installation</h4>
+                        <p>Screw 4× M3 standoffs (10mm height) to enclosure bottom in 60×40mm pattern. Use M3×6mm screws from outside. Ensure alignment with PCB holes.</p>
+                    </div>
+
+                    <div class="assembly-step">
+                        <h4>Connector Installation</h4>
+                        <p><strong>J3 (DC Jack):</strong> Insert from outside, tighten nut from inside.<br>
+                        <strong>J1 (Micro-D):</strong> Mount connector in hole, secure with screws (if has mounting ears).<br>
+                        <strong>LED:</strong> Press-fit LED in Ø5.5mm hole, secure with drop of hot glue.</p>
+                    </div>
+
+                    <div class="assembly-step">
+                        <h4>PCB Installation</h4>
+                        <p>Connect wires from J1 and J3 to corresponding PCB points (check electrical schematic). Place PCB on standoffs and secure with M3×6mm screws. Don't overtighten!</p>
+                    </div>
+
+                    <div class="assembly-step">
+                        <h4>Ouster Cable Routing</h4>
+                        <p>Thread 3 wires (green, white, black) through rear wall opening. Solder to PCB per schematic. Install rubber grommet in hole for cable protection.</p>
+                    </div>
+
+                    <div class="assembly-step">
+                        <h4>Pre-Closure Testing</h4>
+                        <p>⚠️ <strong>CRITICAL!</strong> Before closing enclosure:<br>
+                        1. Connect 12V power, verify LED lights<br>
+                        2. Multimeter check: 5V at LM7805 output<br>
+                        3. Verify LM7805 heatsink temp (max 60°C)<br>
+                        4. Ensure all connections are solid</p>
+                    </div>
+
+                    <div class="assembly-step">
+                        <h4>Enclosure Closure</h4>
+                        <p>Place lid, ensure groove fits properly. Secure with 4× M3×12mm screws at corners. If lid won't close, check for protruding components.</p>
+                    </div>
+
+                    <div class="assembly-step">
+                        <h4>Sealing (Optional)</h4>
+                        <p>For outdoor use: apply thin silicone bead around lid perimeter before screwing. Use clear acetylene silicone. Allow 24h cure before use.</p>
+                    </div>
+
+                    <div class="assembly-step">
+                        <h4>Final Verification</h4>
+                        <p>Connect xNAV650 and Ouster. Power on. Verify:<br>
+                        • LED illuminated (green light)<br>
+                        • Ouster receives NMEA signal (check web interface)<br>
+                        • PPS synchronizes correctly<br>
+                        • Enclosure doesn't overheat (max 50°C)</p>
+                    </div>
+                </div>
+
+                <div class="info-terminal" style="background: #000; border-color: #22c55e;">
+                    <strong>✅ COMPLETE!</strong> Your xNAV650-Ouster adapter is ready for deployment. Remember to calibrate Ouster after first boot.
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 5: Options -->
+        <div id="options" class="tab-panel">
+            <div class="project-section">
+                <h3>Enclosure Options - What to Choose?</h3>
+
+                <h3 style="margin-top: 2rem;">Option 1: Off-the-Shelf Enclosure</h3>
+                <div class="option-card">
+                    <h4>Hammond 1591XXSSBK (Recommended for Beginners)</h4>
+                    <ul>
+                        <li><strong>Dimensions:</strong> 85×56×25mm (perfect fit)</li>
+                        <li><strong>Material:</strong> ABS, black, IP54</li>
+                        <li><strong>Pros:</strong> Professional look, easy drilling, weatherproof</li>
+                        <li><strong>Cons:</strong> Requires drilling holes</li>
+                        <li><strong>Price:</strong> ~$8-12 USD</li>
+                        <li><strong>Lead time:</strong> 1-3 days (shipping)</li>
+                        <li><strong>Suppliers:</strong> Mouser, DigiKey, Farnell</li>
+                    </ul>
+                </div>
+
+                <h3 style="margin-top: 2rem;">Option 2: 3D Printed (Advanced)</h3>
+                <div class="option-card">
+                    <h4>Custom 3D Printed Enclosure</h4>
+                    <ul>
+                        <li><strong>Material:</strong> PETG (recommended) or ABS</li>
+                        <li><strong>Layer height:</strong> 0.2mm</li>
+                        <li><strong>Infill:</strong> 30-50%</li>
+                        <li><strong>Pros:</strong> Perfect fit, holes pre-made, customizable</li>
+                        <li><strong>Cons:</strong> Requires 3D printer access, longer print time</li>
+                        <li><strong>Price:</strong> ~$2-5 (filament) or $15-25 (service)</li>
+                        <li><strong>Lead time:</strong> 4-6 hours (print) + 2-3 days (service)</li>
+                        <li><strong>Services:</strong> Shapeways, Sculpteo, local makerspaces</li>
+                    </ul>
+                </div>
+
+                <h3 style="margin-top: 2rem;">Option 3: Industrial Enclosure</h3>
+                <div class="option-card">
+                    <h4>Standard IP65 Electrical Box</h4>
+                    <ul>
+                        <li><strong>Dimensions:</strong> 100×68×50mm (slightly larger but robust)</li>
+                        <li><strong>Material:</strong> PC/ABS, gray</li>
+                        <li><strong>Pros:</strong> Very durable, IP65 rated, good cooling</li>
+                        <li><strong>Cons:</strong> Larger than needed, heavier</li>
+                        <li><strong>Price:</strong> ~$5-10 USD</li>
+                        <li><strong>Use case:</strong> Harsh environments (outdoor, industrial)</li>
+                    </ul>
+                </div>
+
+                <h3 style="margin-top: 2rem;">Comparison Matrix</h3>
+                <table class="comparison-table">
+                    <tr>
+                        <th>Criteria</th>
+                        <th>Hammond 1591XX</th>
+                        <th>3D Print (PETG)</th>
+                        <th>IP65 Box</th>
+                    </tr>
+                    <tr>
+                        <td>💰 Cost</td>
+                        <td>$8-12</td>
+                        <td>$2-25</td>
+                        <td>$5-10</td>
+                    </tr>
+                    <tr>
+                        <td>⏱️ Lead Time</td>
+                        <td>1-3 days</td>
+                        <td>4-6h (self) / 2-3d (service)</td>
+                        <td>Immediate (stock)</td>
+                    </tr>
+                    <tr>
+                        <td>🔧 Difficulty</td>
+                        <td>Medium (drilling)</td>
+                        <td>Easy (pre-made holes)</td>
+                        <td>Medium (drilling)</td>
+                    </tr>
+                    <tr>
+                        <td>🌧️ Waterproof</td>
+                        <td>IP54 (with gasket)</td>
+                        <td>IP20-40 (needs sealing)</td>
+                        <td>IP65 (factory)</td>
+                    </tr>
+                    <tr>
+                        <td>✨ Appearance</td>
+                        <td>Professional</td>
+                        <td>Varies by print</td>
+                        <td>Industrial</td>
+                    </tr>
+                    <tr>
+                        <td>📝 Customization</td>
+                        <td>Low</td>
+                        <td>Full (logos, text)</td>
+                        <td>Low</td>
+                    </tr>
+                    <tr>
+                        <td>🏆 Recommendation</td>
+                        <td>⭐⭐⭐⭐⭐</td>
+                        <td>⭐⭐⭐⭐</td>
+                        <td>⭐⭐⭐</td>
+                    </tr>
+                </table>
+
+                <div class="info-terminal" style="background: #000; border-color: #6366f1;">
+                    <strong>🎯 OUR RECOMMENDATION:</strong> For first prototype, use Hammond 1591XXSSBK - easy machining, professional look, good price. For production runs, order 3D prints with STL files (available below).
+                </div>
+
+                <h3 style="margin-top: 2rem;">3D Print Settings (PETG)</h3>
+                <table class="dimensions-table">
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Value</th>
+                        <th>Notes</th>
+                    </tr>
+                    <tr>
+                        <td>Material</td>
+                        <td>PETG</td>
+                        <td>Alternative: ABS (needs heated bed)</td>
+                    </tr>
+                    <tr>
+                        <td>Nozzle temp</td>
+                        <td>230-240°C</td>
+                        <td>For PETG, depends on filament</td>
+                    </tr>
+                    <tr>
+                        <td>Bed temp</td>
+                        <td>70-80°C</td>
+                        <td>Important for adhesion</td>
+                    </tr>
+                    <tr>
+                        <td>Layer height</td>
+                        <td>0.2mm</td>
+                        <td>Sweet spot speed/quality</td>
+                    </tr>
+                    <tr>
+                        <td>Infill</td>
+                        <td>30-40%</td>
+                        <td>Sufficient strength</td>
+                    </tr>
+                    <tr>
+                        <td>Infill pattern</td>
+                        <td>Gyroid or Grid</td>
+                        <td>Best for mechanical strength</td>
+                    </tr>
+                    <tr>
+                        <td>Print speed</td>
+                        <td>40-50mm/s</td>
+                        <td>Slower = better quality</td>
+                    </tr>
+                    <tr>
+                        <td>Supports</td>
+                        <td>YES</td>
+                        <td>For side wall holes</td>
+                    </tr>
+                    <tr>
+                        <td>Brim/Raft</td>
+                        <td>Brim 5mm</td>
+                        <td>Prevents warping</td>
+                    </tr>
+                    <tr>
+                        <td>Cooling</td>
+                        <td>50-75%</td>
+                        <td>For PETG not too much!</td>
+                    </tr>
+                    <tr>
+                        <td>Print time</td>
+                        <td>4-6h</td>
+                        <td>Depends on printer</td>
+                    </tr>
+                </table>
+
+                <div class="download-box">
+                    <h3>📥 Download 3D Print Files</h3>
+                    <p>Ready-to-print models in multiple formats</p>
+                    <div class="download-links">
+                        <a href="#" class="project-link" onclick="alert('STL files available on GitHub repository'); return false;">Download STL (Bottom)</a>
+                        <a href="#" class="project-link" onclick="alert('STL files available on GitHub repository'); return false;">Download STL (Lid)</a>
+                        <a href="#" class="project-link" onclick="alert('STEP files available on GitHub repository'); return false;">Download STEP (Editable)</a>
+                    </div>
+                    <p style="margin-top: 1rem; font-size: 0.9rem;">
+                        Compatible with: Cura, PrusaSlicer, Simplify3D, FreeCAD, Fusion 360
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-section">
+            <h3>Technical Highlights</h3>
+            <ul>
+                <li>Custom PCB with LM7805 voltage regulation (12V to 5V)</li>
+                <li>Signal conditioning for NMEA GPS data transmission</li>
+                <li>PPS (Pulse Per Second) synchronization for LiDAR timestamping</li>
+                <li>Compact design optimized for vehicle integration</li>
+                <li>Thermal management through ventilation slots</li>
+                <li>Ruggedized connector mounting for vibration resistance</li>
+            </ul>
+        </div>
+
+        <div class="project-section">
+            <h3>Skills Demonstrated</h3>
+            <ul>
+                <li>3D CAD modeling and mechanical design</li>
+                <li>PCB layout and electrical schematic design</li>
+                <li>Enclosure design with precise tolerances</li>
+                <li>GPS/INS and LiDAR sensor integration</li>
+                <li>Power supply design and thermal management</li>
+                <li>Technical documentation and assembly instructions</li>
+                <li>Manufacturing considerations (3D printing, CNC, off-the-shelf)</li>
+                <li>Signal timing and synchronization (PPS)</li>
+            </ul>
+        </div>
+
+        <div class="project-section">
+            <h3>Application Use Case</h3>
+            <p>This adapter enables precise time-synchronized LiDAR point clouds for autonomous vehicle mapping and SLAM applications. The xNAV650 GPS/INS provides accurate positioning and timing via PPS signal, which synchronizes Ouster LiDAR measurements to GPS time. This ensures consistent timestamps across sensor modalities, critical for sensor fusion and mapping accuracy.</p>
+            <p>The design is optimized for robotic platforms requiring reliable outdoor operation, with consideration for vibration, thermal management, and weatherproofing.</p>
+        </div>
+
+        <div class="project-section">
+            <h3>Links & Resources</h3>
+            <div class="project-links">
+                <a href="https://github.com/SoloScriptSage/xNAV650-Ouster-Adapter-Enclosure" class="project-link" target="_blank">GitHub Repository</a>
+                <a href="xnav650.pdf" class="project-link" target="_blank">PCB Schematic (PDF)</a>
+                <a href="#" class="project-link" target="_blank">3D Models (STL/STEP)</a>
+                <a href="xnav-bom.csv" class="project-link" target="_blank">Bill of Materials</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Tab switching
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-panel').forEach(panel => {
+                panel.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+            
+            if(tabId === 'drilling') {
+                setTimeout(() => drawDrillingTemplate(), 100);
+            }
+        }
+
+        // 3D Canvas Setup
+        const canvas = document.getElementById('canvas3d');
+        const ctx = canvas.getContext('2d');
+        canvas.width = 700;
+        canvas.height = 400;
+
+        let rotation = { x: 20, y: 45 };
+        let exploded = false;
+        let showLid = true;
+        let isDragging = false;
+        let lastMouse = { x: 0, y: 0 };
+
+        function project3D(x, y, z) {
+            const scale = 3;
+            const perspective = 500;
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+
+            const cosX = Math.cos(rotation.x * Math.PI / 180);
+            const sinX = Math.sin(rotation.x * Math.PI / 180);
+            const cosY = Math.cos(rotation.y * Math.PI / 180);
+            const sinY = Math.sin(rotation.y * Math.PI / 180);
+
+            let y1 = y * cosX - z * sinX;
+            let z1 = y * sinX + z * cosX;
+            let x1 = x * cosY - z1 * sinY;
+            let z2 = x * sinY + z1 * cosY;
+
+            const scaleProj = perspective / (perspective + z2);
+            return {
+                x: centerX + x1 * scale * scaleProj,
+                y: centerY - y1 * scale * scaleProj
+            };
+        }
+
+        function drawBox(x, y, z, w, h, d, color, label) {
+            const corners = [
+                [x, y, z], [x+w, y, z], [x+w, y+h, z], [x, y+h, z],
+                [x, y, z+d], [x+w, y, z+d], [x+w, y+h, z+d], [x, y+h, z+d]
+            ];
+            
+            const projected = corners.map(c => project3D(c[0], c[1], c[2]));
+            
+            ctx.strokeStyle = color;
+            ctx.fillStyle = color + '30';
+            ctx.lineWidth = 2;
+
+            const faces = [
+                [0,1,2,3], [4,5,6,7], [0,1,5,4], 
+                [2,3,7,6], [0,3,7,4], [1,2,6,5]
+            ];
+
+            faces.forEach(face => {
+                ctx.beginPath();
+                ctx.moveTo(projected[face[0]].x, projected[face[0]].y);
+                for(let i = 1; i < face.length; i++) {
+                    ctx.lineTo(projected[face[i]].x, projected[face[i]].y);
+                }
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+            });
+
+            if(label) {
+                const center = project3D(x+w/2, y+h/2, z+d/2);
+                ctx.fillStyle = '#fff';
+                ctx.font = 'bold 11px Courier New';
+                ctx.textAlign = 'center';
+                ctx.fillText(label, center.x, center.y);
+            }
+        }
+
+        function draw3DView() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            const offsetY = exploded ? 20 : 0;
+            
+            drawBox(-45, -10, -30, 90, 20, 60, '#fff', 'Base');
+            drawBox(-32.5, -8, -20, 65, 1, 40, '#22c55e', 'PCB');
+            drawBox(-20, -8, -15, 15, 8, 10, '#fbbf24', 'U2');
+            drawBox(0, -8, -15, 20, 5, 10, '#8b5cf6', 'U1');
+            drawBox(-20, -8, 0, 15, 5, 10, '#ec4899', 'U3');
+            
+            if(showLid) {
+                drawBox(-45, -10 - offsetY, -30, 90, 10, 60, '#ccc', 'Lid');
+            }
+            
+            drawBox(-48, 0, -10, 3, 8, 15, '#22c55e', 'J1');
+            drawBox(-48, -5, 10, 3, 5, 5, '#fbbf24', 'J3');
+            drawBox(40, 8, 20, 2, 2, 2, '#ef4444', 'LED');
+            
+            ctx.strokeStyle = '#ccc';
+            ctx.lineWidth = 3;
+            const cableStart = project3D(45, 0, 0);
+            const cableEnd = project3D(60, 0, 0);
+            ctx.beginPath();
+            ctx.moveTo(cableStart.x, cableStart.y);
+            ctx.lineTo(cableEnd.x, cableEnd.y);
+            ctx.stroke();
+            
+            ctx.fillStyle = '#ccc';
+            ctx.font = '10px Courier New';
+            ctx.fillText('Ouster', cableEnd.x + 5, cableEnd.y);
+        }
+
+        function resetView() {
+            rotation = { x: 20, y: 45 };
+            exploded = false;
+            showLid = true;
+            draw3DView();
+        }
+
+        function toggleExploded() {
+            exploded = !exploded;
+            draw3DView();
+        }
+
+        function toggleLid() {
+            showLid = !showLid;
+            draw3DView();
+        }
+
+        canvas.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            lastMouse = { x: e.clientX, y: e.clientY };
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            if(isDragging) {
+                const dx = e.clientX - lastMouse.x;
+                const dy = e.clientY - lastMouse.y;
+                rotation.y += dx * 0.5;
+                rotation.x += dy * 0.5;
+                lastMouse = { x: e.clientX, y: e.clientY };
+                draw3DView();
+            }
+        });
+
+        canvas.addEventListener('mouseup', () => isDragging = false);
+        canvas.addEventListener('mouseleave', () => isDragging = false);
+
+        function drawDrillingTemplate() {
+            const canvas = document.getElementById('drillingTemplate');
+            if(!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            const scale = 6;
+            const offsetX = 100;
+            const offsetY = 100;
+            
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 3;
+            ctx.strokeRect(offsetX, offsetY, 90*scale, 60*scale);
+            
+            ctx.fillStyle = '#000';
+            ctx.font = 'bold 16px Courier New';
+            ctx.fillText('DRILLING TEMPLATE - Top View', offsetX, offsetY - 30);
+            ctx.font = '12px Courier New';
+            ctx.fillText('Scale 6:1 (print and rescale to actual dimensions)', offsetX, offsetY - 10);
+            
+            ctx.strokeStyle = '#ccc';
+            ctx.lineWidth = 1;
+            for(let i = 0; i <= 90; i += 10) {
+                ctx.beginPath();
+                ctx.moveTo(offsetX + i*scale, offsetY);
+                ctx.lineTo(offsetX + i*scale, offsetY + 60*scale);
+                ctx.stroke();
+            }
+            for(let i = 0; i <= 60; i += 10) {
+                ctx.beginPath();
+                ctx.moveTo(offsetX, offsetY + i*scale);
+                ctx.lineTo(offsetX + 90*scale, offsetY + i*scale);
+                ctx.stroke();
+            }
+            
+            const holes = [
+                { x: 10, y: 30, d: 8, label: 'DC Jack Ø8mm', color: '#fbbf24' },
+                { x: 10, y: 15, d: 20, h: 10, label: 'Micro-D 20x10mm', color: '#22c55e', rect: true },
+                { x: 80, y: 5, d: 5.5, label: 'LED Ø5.5mm', color: '#ef4444' },
+                { x: 45, y: 60, d: 20, h: 8, label: 'Cables 20x8mm', color: '#8b5cf6', rect: true }
+            ];
+            
+            holes.forEach(hole => {
+                if(hole.rect) {
+                    ctx.fillStyle = hole.color + '60';
+                    ctx.strokeStyle = hole.color;
+                    ctx.lineWidth = 2;
+                    ctx.fillRect(offsetX + (hole.x - hole.d/2)*scale, offsetY + (hole.y - hole.h/2)*scale, hole.d*scale, hole.h*scale);
+                    ctx.strokeRect(offsetX + (hole.x - hole.d/2)*scale, offsetY + (hole.y - hole.h/2)*scale, hole.d*scale, hole.h*scale);
+                } else {
+                    ctx.fillStyle = hole.color + '60';
+                    ctx.strokeStyle = hole.color;
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.arc(offsetX + hole.x*scale, offsetY + hole.y*scale, hole.d/2*scale, 0, Math.PI*2);
+                    ctx.fill();
+                    ctx.stroke();
+                }
+                
+                ctx.strokeStyle = '#000';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(offsetX + hole.x*scale - 10, offsetY + hole.y*scale);
+                ctx.lineTo(offsetX + hole.x*scale + 10, offsetY + hole.y*scale);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(offsetX + hole.x*scale, offsetY + hole.y*scale - 10);
+                ctx.lineTo(offsetX + hole.x*scale, offsetY + hole.y*scale + 10);
+                ctx.stroke();
+                
+                ctx.fillStyle = '#000';
+                ctx.font = '11px Courier New';
+                ctx.fillText(hole.label, offsetX + hole.x*scale + 20, offsetY + hole.y*scale + 5);
+                ctx.font = '9px Courier New';
+                ctx.fillText(`(${hole.x}, ${hole.y})`, offsetX + hole.x*scale + 20, offsetY + hole.y*scale + 18);
+            });
+            
+            ctx.fillStyle = '#00000060';
+            ctx.strokeStyle = '#000';
+            const corners = [[5,5], [85,5], [5,55], [85,55]];
+            corners.forEach(([x, y]) => {
+                ctx.beginPath();
+                ctx.arc(offsetX + x*scale, offsetY + y*scale, 1.6*scale, 0, Math.PI*2);
+                ctx.fill();
+                ctx.stroke();
+            });
+            ctx.fillStyle = '#000';
+            ctx.font = '10px Courier New';
+            ctx.fillText('4× M3 mounting (corners)', offsetX, offsetY + 60*scale + 25);
+        }
+
+        draw3DView();
+    </script>
+</body>
+</html>
