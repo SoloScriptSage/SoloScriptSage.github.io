@@ -970,61 +970,102 @@
         }
 
         function drawBox(x, y, z, w, h, d, color, label) {
-            const corners = [
-                [x, y, z], [x+w, y, z], [x+w, y+h, z], [x, y+h, z],
-                [x, y, z+d], [x+w, y, z+d], [x+w, y+h, z+d], [x, y+h, z+d]
-            ];
-            
-            const projected = corners.map(c => project3D(c[0], c[1], c[2]));
-            
-            ctx.strokeStyle = color;
-            ctx.fillStyle = color + '30';
-            ctx.lineWidth = 2;
+                const corners = [
+                    [x, y, z], [x+w, y, z], [x+w, y+h, z], [x, y+h, z],
+                    [x, y, z+d], [x+w, y, z+d], [x+w, y+h, z+d], [x, y+h, z+d]
+                ];
+                
+                const projected = corners.map(c => project3D(c[0], c[1], c[2]));
+                
+                ctx.strokeStyle = color;
+                ctx.fillStyle = color + '30';
+                ctx.lineWidth = 2;
 
-            const faces = [
-                [0,1,2,3], [4,5,6,7], [0,1,5,4], 
-                [2,3,7,6], [0,3,7,4], [1,2,6,5]
-            ];
+                const faces = [
+                    [0,1,2,3], [4,5,6,7], [0,1,5,4], 
+                    [2,3,7,6], [0,3,7,4], [1,2,6,5]
+                ];
 
-            faces.forEach(face => {
-                ctx.beginPath();
-                ctx.moveTo(projected[face[0]].x, projected[face[0]].y);
-                for(let i = 1; i < face.length; i++) {
-                    ctx.lineTo(projected[face[i]].x, projected[face[i]].y);
+                faces.forEach(face => {
+                    ctx.beginPath();
+                    ctx.moveTo(projected[face[0]].x, projected[face[0]].y);
+                    for(let i = 1; i < face.length; i++) {
+                        ctx.lineTo(projected[face[i]].x, projected[face[i]].y);
+                    }
+                    ctx.closePath();
+                    ctx.fill();
+                    ctx.stroke();
+                });
+
+                if(label) {
+                    const center = project3D(x+w/2, y+h/2, z+d/2);
+                    ctx.fillStyle = '#fff';
+                    ctx.font = 'bold 11px Courier New';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(label, center.x, center.y);
                 }
-                ctx.closePath();
-                ctx.fill();
-                ctx.stroke();
-            });
-
-            if(label) {
-                const center = project3D(x+w/2, y+h/2, z+d/2);
-                ctx.fillStyle = '#fff';
-                ctx.font = 'bold 11px Courier New';
-                ctx.textAlign = 'center';
-                ctx.fillText(label, center.x, center.y);
             }
-        }
 
         function draw3DView() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
             const offsetY = exploded ? 20 : 0;
             
+            // Base - białe obrys
             drawBox(-45, -10, -30, 90, 20, 60, '#fff', 'Base');
+            
+            // PCB - zielone
             drawBox(-32.5, -8, -20, 65, 1, 40, '#22c55e', 'PCB');
+            
+            // Komponenty
             drawBox(-20, -8, -15, 15, 8, 10, '#fbbf24', 'U2');
             drawBox(0, -8, -15, 20, 5, 10, '#8b5cf6', 'U1');
             drawBox(-20, -8, 0, 15, 5, 10, '#ec4899', 'U3');
             
+            // Lid - przezroczyste z białym obrysem
             if(showLid) {
-                drawBox(-45, -10 - offsetY, -30, 90, 10, 60, '#ccc', 'Lid');
+                ctx.strokeStyle = '#fff';
+                ctx.fillStyle = '#ffffff15'; // Bardzo przezroczysty biały (zamiast '#ccc')
+                ctx.lineWidth = 2;
+                
+                const x = -45, y = -10 - offsetY, z = -30, w = 90, h = 10, d = 60;
+                const corners = [
+                    [x, y, z], [x+w, y, z], [x+w, y+h, z], [x, y+h, z],
+                    [x, y, z+d], [x+w, y, z+d], [x+w, y+h, z+d], [x, y+h, z+d]
+                ];
+                
+                const projected = corners.map(c => project3D(c[0], c[1], c[2]));
+                
+                const faces = [
+                    [0,1,2,3], [4,5,6,7], [0,1,5,4], 
+                    [2,3,7,6], [0,3,7,4], [1,2,6,5]
+                ];
+
+                faces.forEach(face => {
+                    ctx.beginPath();
+                    ctx.moveTo(projected[face[0]].x, projected[face[0]].y);
+                    for(let i = 1; i < face.length; i++) {
+                        ctx.lineTo(projected[face[i]].x, projected[face[i]].y);
+                    }
+                    ctx.closePath();
+                    ctx.fill();
+                    ctx.stroke();
+                });
+                
+                // Label dla lid
+                const center = project3D(x+w/2, y+h/2, z+d/2);
+                ctx.fillStyle = '#fff';
+                ctx.font = 'bold 11px Courier New';
+                ctx.textAlign = 'center';
+                ctx.fillText('Lid', center.x, center.y);
             }
             
+            // Złącza
             drawBox(-48, 0, -10, 3, 8, 15, '#22c55e', 'J1');
             drawBox(-48, -5, 10, 3, 5, 5, '#fbbf24', 'J3');
             drawBox(40, 8, 20, 2, 2, 2, '#ef4444', 'LED');
             
+            // Kabel do Ouster
             ctx.strokeStyle = '#ccc';
             ctx.lineWidth = 3;
             const cableStart = project3D(45, 0, 0);
