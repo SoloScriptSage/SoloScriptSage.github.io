@@ -1,204 +1,187 @@
-# xNAV650 to Ouster OS1-128 Adapter
-## Final Bill of Materials (BOM)
+# Bill of Materials (BOM)
+## xNAV650 to Ouster OS1 Adapter
+
+**Project:** Time Synchronization Adapter for Ouster OS1 LiDAR with xNAV650 INS  
+**Revision:** 1.0  
+**Date:** 2025-11-14  
+**Designer:** Vladyslav Hirchuk
 
 ---
 
-## INTEGRATED CIRCUITS
-
-| Qty | Ref | Part Number | Description | Package | Manufacturer | Price (PLN) | Supplier | Part Link |
-|-----|-----|-------------|-------------|---------|--------------|-------------|----------|-----------|
-| 1 | U1 | MAX3232CPE+ | RS232 to TTL Transceiver, 3-5.5V | DIP-16 | Maxim/Analog Devices | ~8 zł | TME/Botland | [TME](https://www.tme.eu/pl/details/max3232cpe/konwertery-rs232/analog-devices/) |
-| 1 | U2 | LM7805CT | 5V 1A Linear Voltage Regulator | TO-220 | STMicro/TI | ~2 zł | TME | [TME](https://www.tme.eu/pl/details/l7805cv/stabilizatory-napiecia-nieregulowane/stmicroelectronics/) |
-| 1 | U3 | 74HC125N | Quad Buffer with 3-State Outputs | DIP-14 | Texas Instruments | ~2 zł | TME | [TME](https://www.tme.eu/pl/details/sn74hc125n/bramki-logiczne-cmos-smd/texas-instruments/) |
-
-**Total ICs: ~12 zł**
+## Purpose
+This adapter enables time synchronization between the xNAV650 INS and Ouster OS1-128 LiDAR by:
+- Converting RS232 NMEA messages (from xNAV650) to TTL 5V (for OS1)
+- Level-shifting the PPS signal from 3.3V to 5V TTL
+- Providing buffered ethernet pass-through
+- Stepping down 12V input to 3.3V for logic circuits
 
 ---
 
-## CAPACITORS
+## Component List
 
-### Electrolytic Capacitors
+### Power Components
 
-| Qty | Ref | Value | Voltage | Type | Price (PLN) | Notes |
-|-----|-----|-------|---------|------|-------------|-------|
-| 1 | C1 | 10µF | 25V | Electrolytic, Radial | ~0.30 zł | Input filter for LM7805 |
-| 1 | C2 | 100µF | 16V | Electrolytic, Radial | ~0.50 zł | Output filter for LM7805 |
+| Ref | Qty | Value/Part Number | Description | Package/Footprint | Notes |
+|-----|-----|-------------------|-------------|-------------------|-------|
+| J1 | 1 | Barrel Jack | DC Power Input, 12V | BarrelJack_Horizontal | 5.5mm x 2.1mm recommended |
+| U3 | 1 | OKI-78SR-3.3/1.5-W36-C | DC-DC Buck Converter, 12V→3.3V, 1.5A | OKI-78SR Vertical | Non-isolated switching regulator |
+| C1 | 1 | 100µF | Electrolytic Capacitor, 25V | Radial D6.3mm, P2.50mm | Input bulk capacitor |
+| C2 | 1 | 100µF | Electrolytic Capacitor, 16V | Radial D6.3mm, P2.50mm | Output filter capacitor |
+| C5 | 1 | 100µF | Electrolytic Capacitor, 16V | Radial D6.3mm, P2.50mm | Additional 3.3V filtering |
+| D1 | 1 | LED (Green) | Power Indicator LED, 5mm | LED_D5.0mm | Forward voltage ~2V, add series resistor if needed |
 
-### Ceramic Capacitors
+### Signal Conversion Components
 
-| Qty | Ref | Value | Voltage | Dielectric | Price (PLN) | Notes |
-|-----|-----|-------|---------|------------|-------------|-------|
-| 4 | C3, C4, C5, C6 | 1µF | 25V | X7R Ceramic | ~0.40 zł each | MAX3232 charge pump capacitors (MUST be X7R!) |
-| 2 | C7, C8 | 100nF | 50V | X7R Ceramic | ~0.20 zł each | Decoupling capacitors for U1, U3 |
+| Ref | Qty | Value/Part Number | Description | Package/Footprint | Notes |
+|-----|-----|-------------------|-------------|-------------------|-------|
+| U2 | 1 | MAX3232 | Dual RS232 Transceiver | DIP-16, 7.62mm pitch | Converts RS232 ↔ TTL logic levels |
+| C3 | 1 | 100µF | Electrolytic Capacitor, 16V | Radial D6.3mm, P2.50mm | Charge pump capacitor for MAX3232 |
+| C4 | 1 | 100µF | Electrolytic Capacitor, 16V | Radial D6.3mm, P2.50mm | Charge pump capacitor for MAX3232 |
+| U4 | 1 | 74HC125N | Quad 3-State Buffer | DIP-14, 7.62mm pitch | Buffers PPS signal to 5V TTL |
+| R1 | 1 | 100Ω | Current Limiting Resistor | Axial, 1/4W, L6.3mm | For LED current limiting |
+| R2 | 1 | 100Ω | Current Limiting Resistor | Axial, 1/4W, L6.3mm | Signal termination/protection |
 
-**Total Capacitors: ~3.50 zł**
+### Connectors
 
----
-
-## RESISTORS (1/4W, 5% Tolerance)
-
-| Qty | Ref | Value | Power | Price (PLN) | Purpose |
-|-----|-----|-------|-------|-------------|---------|
-| 2 | R1, R2 | 100Ω | 1/4W | ~0.10 zł each | Series resistors for signal protection |
-| 1 | R3 | 1kΩ | 1/4W | ~0.10 zł | Current limiting resistor for LED |
-
-**Total Resistors: ~0.30 zł**
-
----
-
-## SEMICONDUCTORS
-
-| Qty | Ref | Part | Description | Package | Price (PLN) | Notes |
-|-----|-----|------|-------------|---------|-------------|-------|
-| 1 | LED1 | Green LED | 5mm Green LED, 20mA | THT 5mm | ~0.30 zł | Power indicator |
-
-**Total LEDs: ~0.30 zł**
+| Ref | Qty | Value/Part Number | Description | Package/Footprint | Notes |
+|-----|-----|-------------------|-------------|-------------------|-------|
+| J2 | 1 | 15-pin Micro-D Female | Main xNAV650 Interface | DSUB-15 Horizontal, P2.77x2.84mm | Mates with xNAV650 user cable |
+| J4 | 1 | RJ45 LED Shielded | Ethernet + Ouster Interface | Amphenol 54602-x08 Horizontal | Combined Ethernet + power + signals |
+| U1 | 1 | Ouster OS1 | LiDAR Unit (not on PCB) | — | External device, for reference only |
 
 ---
 
-## CONNECTORS
+## Additional Materials Required (Not on PCB)
 
-| Qty | Ref | Type | Part Number | Description | Price (PLN) | Supplier | Notes |
-|-----|-----|------|-------------|-------------|-------------|----------|-------|
-| 1 | J1 | Micro-D Female | Amphenol 17E15380000 or equiv. | 15-pin Micro-D Female Connector | ~15-20 zł | TME/Farnell | For xNAV650 cable connection |
-| 1 | J3 | DC Barrel Jack | Standard 5.5×2.1mm | DC Power Jack, Panel Mount | ~1-2 zł | Botland/TME | 12V power input |
-| 1 | - | Wire/Pigtail | - | 3-wire cable with ferrules/terminals | ~5 zł | Local electronics | For Ouster connection (Green/White/Black) |
-
-**Total Connectors: ~21-27 zł**
-
----
-
-## POWER SUPPLY
-
-| Qty | Description | Specifications | Price (PLN) | Supplier | Notes |
-|-----|-------------|----------------|-------------|----------|-------|
-| 1 | Wall Adapter | 12V DC, 1A min, Center Positive, 5.5×2.1mm plug | ~15-25 zł | Botland/Allegro | Regulated switching adapter recommended |
-
-**Total Power: ~20 zł**
+| Item | Qty | Description | Purpose |
+|------|-----|-------------|---------|
+| PCB | 1 | Custom PCB, 2-layer minimum | Houses all components |
+| Enclosure | 1 | Plastic/aluminum project box | Weather protection, mounting |
+| Cable - xNAV650 | 1 | User cable or custom 15-pin Micro-D | Connect to xNAV650 main port |
+| Cable - Ethernet | 1 | Standard Cat5e/Cat6 patch cable | Ethernet pass-through |
+| Cable - OS1 Power/IO | 1 | Custom cable per Ouster spec | Connect to OS1 I/O connector |
+| Standoffs/Screws | 4 | M3 or #4-40, 10mm | PCB mounting in enclosure |
+| Wire | — | 22-24 AWG stranded | Internal connections |
+| Heat shrink tubing | — | Various sizes | Wire insulation and strain relief |
 
 ---
 
-## PCB & MECHANICAL
+## Component Specifications & Notes
 
-| Qty | Item | Description | Size/Type | Price (PLN) | Supplier | Notes |
-|-----|------|-------------|-----------|-------------|----------|-------|
-| 1 | PCB | Perfboard or Custom PCB | 60×40mm min | ~5-10 zł | Botland/TME | Single-sided perfboard OK |
-| 1 | Heatsink | TO-220 Heatsink | Clip-on or adhesive | ~2-3 zł | TME | For LM7805 |
-| 3 | IC Sockets | DIP Sockets | 16-pin (1×), 14-pin (1×) | ~1-2 zł each | TME | Optional but recommended |
-| 1 | Enclosure | Plastic Box | 85×56×25mm or similar | ~8-15 zł | TME/Botland | Hammond 1591XXSSBK or similar |
+### Power Supply Requirements
+- **Input:** 12V DC ±10% (10.8V - 13.2V acceptable)
+- **Current Draw:** ~200-300mA typical (mostly from U3 regulator)
+- **Output:** 3.3V @ 1.5A max (OKI-78SR capability)
 
-**Total PCB/Mechanical: ~20-35 zł**
+### Critical Design Notes
 
----
+1. **MAX3232 (U2)**
+   - Operating voltage: 3.0V - 5.5V (running at 3.3V)
+   - Converts xNAV650 RS232 NMEA output to TTL 5V for OS1
+   - Requires external capacitors (C3, C4) for charge pump operation
+   - ESD sensitive - handle with care
 
-## ADDITIONAL MATERIALS
+2. **74HC125N (U4)**
+   - Quad buffer with 3-state outputs
+   - Used to level-shift PPS signal from 3.3V to 5V TTL
+   - Enables/disables controlled via OE pins
+   - Can buffer multiple signals if needed
 
-| Qty | Item | Description | Price (PLN) | Notes |
-|-----|------|-------------|-------------|-------|
-| 1m | Wire | Multi-strand wire 22-24 AWG | ~2-3 zł | For internal connections |
-| - | Solder | 60/40 or lead-free solder | ~5 zł | If not already available |
-| - | Heat Shrink Tubing | Assorted sizes | ~5 zł | Cable strain relief |
-| 4 | M3 Screws | For PCB mounting | ~1 zł | Optional |
-| 4 | M3 Standoffs | 10mm height | ~2 zł | Optional |
+3. **OKI-78SR-3.3 (U3)**
+   - Efficient switching regulator (typically 85-90% efficiency)
+   - Built-in overload and thermal protection
+   - No external components required except input/output capacitors
+   - Compatible with wide input range (6.5V - 36V)
 
-**Total Additional: ~10-15 zł**
+4. **Capacitors**
+   - All 100µF electrolytic capacitors
+   - Minimum voltage rating: 16V (except C1 should be 25V)
+   - Ensure proper polarity during assembly
 
----
+### Signal Connections
 
-## COST SUMMARY
+**From xNAV650 (J2) to Circuit:**
+- Pin 3: Serial RX (RS232) → U2
+- Pin 4: Serial TX (RS232) → U2
+- Pin 12: PPS (3.3V isolated) → U4 buffer
+- Pins 5-8: Ethernet (pass-through to J4)
+- Pins 1-2, 14-15: Supply+ and Supply- (12V power)
 
-| Category | Cost (PLN) |
-|----------|------------|
-| Integrated Circuits | 12 |
-| Capacitors | 3.50 |
-| Resistors | 0.30 |
-| LEDs | 0.30 |
-| Connectors | 21-27 |
-| Power Supply | 20 |
-| PCB & Mechanical | 20-35 |
-| Additional Materials | 10-15 |
-| **TOTAL ESTIMATE** | **87-113 zł** |
-
-**Average Total: ~100 zł (≈ $25 USD / €23)**
-
----
-
-## RECOMMENDED SUPPLIERS (POLAND)
-
-1. **TME (Transfer Multisort Elektronik)** - https://www.tme.eu/pl/
-   - Best for: ICs, capacitors, resistors, connectors
-   - Fast shipping within Poland
-   - Professional components
-
-2. **Botland** - https://botland.com.pl/
-   - Best for: Power supplies, enclosures, basic components
-   - Good for hobbyists
-   - Warsaw-based
-
-3. **Farnell/Newark** - https://pl.farnell.com/
-   - Best for: Professional-grade connectors
-   - International shipping
-
-4. **Local Electronics Shops**
-   - Cheaper for wire, heat shrink, basic tools
+**To Ouster OS1 (via J4):**
+- NMEA_TX: TTL 5V from U2 R1OUT
+- SYNC_PULSE_IN: Buffered 5V PPS from U4
+- Ethernet: Pins 1-2, 3-6, 4-5, 7-8 (standard pinout)
 
 ---
 
-## ALTERNATIVE PARTS (If Primary Not Available)
+## Assembly Notes
 
-| Component | Alternative Part Numbers |
-|-----------|-------------------------|
-| MAX3232CPE+ | MAX3232CPE, MAX3232CSE (SOIC-16 if SMD OK) |
-| LM7805CT | L7805CV, MC7805CT, uA7805 |
-| 74HC125N | 74HCT125N, SN74HC125N, CD74HC125 |
-| Micro-D 15F | TE Connectivity 5745840-8, Norcomp 182-015-213R531 |
+1. **Component Orientation:**
+   - Pay attention to IC pin 1 indicators
+   - Electrolytic capacitors have polarity markings
+   - LED has polarity (longer lead = anode/+)
 
----
+2. **Soldering Order:**
+   - Start with lowest profile components (resistors)
+   - Then ICs (or sockets if using)
+   - Capacitors next
+   - Connectors last
 
-## ORDERING TIPS
+3. **Testing Before Connection:**
+   - Verify 12V input polarity
+   - Measure 3.3V output from U3 before connecting ICs
+   - Check continuity on ethernet pass-through
 
-1. **Order from TME first** - they have most components in stock
-2. **Buy extras** - Get 2-3 of each capacitor type (they're cheap and easy to lose)
-3. **IC Sockets** - Highly recommended for U1 and U3 (makes troubleshooting easier)
-4. **Heatsink for LM7805** - Don't skip this! The regulator will get hot
-5. **Check connector pins** - Verify Micro-D pinout matches your xNAV650 cable
-
----
-
-## ASSEMBLY ORDER (RECOMMENDED)
-
-1. Power supply section (U2, C1, C2)
-2. Test: Apply 12V, verify 5V output
-3. MAX3232 (U1) with charge pump caps (C3-C6)
-4. 74HC125 (U3) buffer
-5. Decoupling caps (C7, C8)
-6. Resistors (R1, R2, R3) and LED
-7. Connectors (J1, J3)
-8. Wire connections to Ouster
+4. **Strain Relief:**
+   - Use cable ties or clamps for all external cables
+   - Ensure no mechanical stress on PCB connectors
 
 ---
 
-## NOTES
+## Recommended Suppliers & Part Numbers
 
-- **CRITICAL**: C3-C6 MUST be X7R ceramic capacitors, not Y5V or Z5U (charge pump won't work with wrong type)
-- **Polarity**: Watch electrolytic capacitor polarity (C1, C2) and LED polarity
-- **74HC125 Enable**: Pin 1 (~1OE) must be tied to GND for the buffer to work
-- **Heatsink**: LM7805 will dissipate ~7W of heat, heatsink is mandatory
-- **Testing**: Test each section before connecting expensive equipment (xNAV650/Ouster)
+### Mouser/Digikey Part Numbers:
 
----
-
-## WHERE TO SAVE MONEY
-
-If budget is tight, you can reduce costs by:
-- Using perfboard instead of custom PCB (-5 zł)
-- Skipping IC sockets (-3 zł)
-- Using cheaper enclosure or 3D print (-10 zł)
-- Re-using old power adapter if you have 12V regulated (-20 zł)
-
-**Minimum viable cost: ~65-70 zł**
+| Component | Manufacturer Part # | Supplier Part # |
+|-----------|-------------------|-----------------|
+| MAX3232CPE | MAX3232CPE+ | Mouser: 700-MAX3232CPE |
+| 74HC125N | 74HC125N | Mouser: 771-74HC125N |
+| OKI-78SR-3.3/1.5-W36-C | OKI-78SR-3.3/1.5-W36-C | Mouser: 811-OKI-78SR-3.3/1.5W36C |
+| Micro-D 15-pin | Varies by manufacturer | Amphenol, Norcomp, etc. |
+| RJ45 Shielded | Amphenol 54602-x08 | Check specific variant needed |
 
 ---
 
-*Last Updated: 2025-11-14*
-*Design: Corrected version based on schematic analysis*
+## Cost Estimate (Approximate, USD)
+
+| Category | Estimated Cost |
+|----------|---------------|
+| ICs (U2, U3, U4) | $15 - $25 |
+| Capacitors (5×) | $3 - $5 |
+| Resistors (2×) | $0.50 - $1 |
+| Connectors (J1, J2, J4) | $10 - $20 |
+| PCB (prototype, single unit) | $20 - $50 |
+| Enclosure + hardware | $10 - $30 |
+| Cables & misc | $15 - $30 |
+| **Total per unit** | **$75 - $160** |
+
+*Bulk pricing will significantly reduce per-unit costs.*
+
+---
+
+## Revision History
+
+| Rev | Date | Changes | Author |
+|-----|------|---------|--------|
+| 1.0 | 2025-11-14 | Initial release | Vladyslav Hirchuk |
+
+---
+
+## Additional Resources
+
+- [xNAV650 Hardware Manual](https://www.datrontechnology.co.uk/wp-content/uploads/2021/03/xNAV650-manual-210311.pdf)
+- [Ouster OS1 Documentation](https://ouster.com/downloads)
+- [MAX3232 Datasheet](https://www.ti.com/product/MAX3232)
+- [OKI-78SR Datasheet](https://www.murata.com/products/productdata/8807031734302/oki-78sr.pdf)
+
+---
